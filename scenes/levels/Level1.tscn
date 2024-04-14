@@ -9,6 +9,9 @@
 
 [node name="Level1" type="Node2D"]
 
+[node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
+position = Vector2( -2, 32 )
+
 [node name="PositionNodes" type="Node2D" parent="."]
 position = Vector2( 18, -186 )
 
@@ -31,9 +34,6 @@ margin_right = 1032.0
 margin_bottom = 799.0
 texture = ExtResource( 1 )
 expand = true
-
-[node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
-position = Vector2( -2, 32 )
 
 [node name="SummonBtns" type="Control" parent="."]
 margin_left = 74.0

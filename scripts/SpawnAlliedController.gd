@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name SpawnAlliedController
+
 var positions: Array
 export var mana_rate = 1.0
 
@@ -26,7 +28,7 @@ func spawn(unit):
 	var instance = unit.instance()
 	if mana_count < instance.cost:
 		return
-		
+
 	var randomNumber = randi() % positions.size()
 	var spawnPosition = positions[randomNumber]
 	instance.position = spawnPosition.global_position
@@ -60,3 +62,6 @@ func searchRootPositionNodes():
 
 func setManaPoints(value):
 	mana_points.bbcode_text = "[center][right]" + str(value)
+
+func get_mana_points():
+	return mana_count

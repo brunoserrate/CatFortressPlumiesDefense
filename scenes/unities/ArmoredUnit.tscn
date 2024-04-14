@@ -9,6 +9,7 @@ height = 6.0
 
 [node name="ArmoredUnit" type="KinematicBody2D"]
 script = ExtResource( 1 )
+cost = 3
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.7, 0.7 )
