@@ -4,7 +4,7 @@ export var move_speed = 100
 export var attack_power = 10
 export var defense = 5
 export var max_health = 100
-
+export var cost = 10
 
 var velocity = Vector2.ZERO
 var health = max_health

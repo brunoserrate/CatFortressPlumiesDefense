@@ -15,19 +15,26 @@ func _ready():
 	connectToSummonEvents()
 	setManaPoints(mana_count)
 
-func spawn(unit):
-	var instance = unit.instance()
-	var randomNumber = randi() % positions.size()
-	var spawnPosition = positions[randomNumber]
-	instance.position = spawnPosition.global_position
-	ysort.add_child(instance)
-
 func _process(delta):
 	timer += delta
 	if timer >= mana_rate:
 		timer = 0
 		mana_count += 1
 		setManaPoints(mana_count);
+
+func spawn(unit):
+	var instance = unit.instance()
+	if mana_count < instance.cost:
+		return
+		
+	var randomNumber = randi() % positions.size()
+	var spawnPosition = positions[randomNumber]
+	instance.position = spawnPosition.global_position
+	ysort.add_child(instance)
+
+	mana_count -= instance.cost
+	setManaPoints(mana_count)
+
 
 func connectToSummonEvents():
 	var btns = []
