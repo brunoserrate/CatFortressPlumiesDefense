@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Backgrounds/HallBackground.png" type="Texture" id=1]
+[ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/SummonBtn.gd" type="Script" id=3]
+[ext_resource path="res://scenes/unities/ArmoredUnit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/unities/ArmoredUnit2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/unities/ArmoredUnit3.tscn" type="PackedScene" id=6]
+
+[node name="Level1" type="Node2D"]
+
+[node name="PositionNodes" type="Node2D" parent="."]
+position = Vector2( 18, -186 )
+
+[node name="Position2D" type="Position2D" parent="PositionNodes"]
+position = Vector2( 125, 531 )
+
+[node name="Position2D2" type="Position2D" parent="PositionNodes"]
+position = Vector2( 163, 471 )
+
+[node name="Position2D3" type="Position2D" parent="PositionNodes"]
+position = Vector2( 183, 433 )
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -16.0
+margin_top = -250.0
+margin_right = 1032.0
+margin_bottom = 799.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
+position = Vector2( -2, 32 )
+
+[node name="SummonBtns" type="Control" parent="."]
+margin_left = 74.0
+margin_top = 14.0
+margin_right = 488.0
+margin_bottom = 240.0
+
+[node name="Summon1" type="Button" parent="SummonBtns"]
+margin_left = 670.0
+margin_top = 480.0
+margin_right = 745.0
+margin_bottom = 580.0
+icon_align = 1
+expand_icon = true
+script = ExtResource( 3 )
+unit_type = ExtResource( 4 )
+
+[node name="Summon2" type="Button" parent="SummonBtns"]
+margin_left = 765.0
+margin_top = 480.0
+margin_right = 840.0
+margin_bottom = 580.0
+icon_align = 1
+expand_icon = true
+script = ExtResource( 3 )
+unit_type = ExtResource( 5 )
+
+[node name="Summon3" type="Button" parent="SummonBtns"]
+margin_left = 860.0
+margin_top = 480.0
+margin_right = 935.0
+margin_bottom = 580.0
+icon_align = 1
+expand_icon = true
+script = ExtResource( 3 )
+unit_type = ExtResource( 6 )
