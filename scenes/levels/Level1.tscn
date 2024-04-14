@@ -51,6 +51,18 @@ expand_icon = true
 script = ExtResource( 3 )
 unit_type = ExtResource( 4 )
 
+[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon1"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -15.0
+margin_right = -5.0
+bbcode_enabled = true
+bbcode_text = "[right]0"
+text = "0"
+
 [node name="Summon2" type="Button" parent="SummonBtns"]
 margin_left = 765.0
 margin_top = 480.0
@@ -61,6 +73,18 @@ expand_icon = true
 script = ExtResource( 3 )
 unit_type = ExtResource( 5 )
 
+[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon2"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -15.0
+margin_right = -5.0
+bbcode_enabled = true
+bbcode_text = "[right]0"
+text = "0"
+
 [node name="Summon3" type="Button" parent="SummonBtns"]
 margin_left = 860.0
 margin_top = 480.0
@@ -70,3 +94,15 @@ icon_align = 1
 expand_icon = true
 script = ExtResource( 3 )
 unit_type = ExtResource( 6 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon3"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -15.0
+margin_right = -5.0
+bbcode_enabled = true
+bbcode_text = "[right]0"
+text = "0"
