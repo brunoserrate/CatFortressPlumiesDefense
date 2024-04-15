@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "SpawnAlliedController",
 "language": "GDScript",
 "path": "res://scripts/SpawnAlliedController.gd"
+}, {
+"base": "Node2D",
+"class": "SpawnEnemyController",
+"language": "GDScript",
+"path": "res://scripts/SpawnEnemyController.gd"
 } ]
 _global_script_class_icons={
-"SpawnAlliedController": ""
+"SpawnAlliedController": "",
+"SpawnEnemyController": ""
 }
 
 [application]

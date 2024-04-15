@@ -9,12 +9,8 @@ export var cost = 10
 var velocity = Vector2.ZERO
 var health = max_health
 
-func _ready():
-	velocity = Vector2.RIGHT * move_speed
-
 func _process(delta):
 	move_and_collide(velocity * delta)
-
 
 func set_target_position(target_position):
 	var direction = (target_position - position).normalized()
@@ -27,3 +23,7 @@ func receive_damage(damage):
 
 func die():
 	queue_free()
+
+func _on_AttackArea_area_entered(area):
+	if area is SpawnEnemyController:
+		area.receive_damage(attack_power)
