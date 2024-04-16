@@ -11,6 +11,8 @@ height = 6.0
 radius = 62.0
 
 [node name="ArmoredUnit" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 14
 script = ExtResource( 1 )
 cost = 3
 
