@@ -22,31 +22,31 @@ radius = 26.0534
 
 [node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
 position = Vector2( -2, 32 )
-enemy_spawn = NodePath("../StaticBody2D/SpawnEnemyController")
+enemy_spawn = NodePath("../EnemyCrystal/SpawnEnemyController")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 1014, 255 )
+[node name="EnemyCrystal" type="StaticBody2D" parent="."]
+position = Vector2( 986, 255 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 8 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCrystal"]
 z_index = 5
 shape = SubResource( 2 )
 
-[node name="SpawnEnemyController" type="Sprite" parent="StaticBody2D"]
+[node name="SpawnEnemyController" type="Sprite" parent="EnemyCrystal"]
 scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 hframes = 12
 
-[node name="Area2D" type="Area2D" parent="StaticBody2D/SpawnEnemyController"]
+[node name="Area2D" type="Area2D" parent="EnemyCrystal/SpawnEnemyController"]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/SpawnEnemyController/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCrystal/SpawnEnemyController/Area2D"]
 position = Vector2( 1, 4 )
 shape = SubResource( 1 )
 
-[node name="TextureProgress" type="TextureProgress" parent="StaticBody2D"]
+[node name="CrystalHpBar" type="TextureProgress" parent="EnemyCrystal"]
 margin_left = -37.0
 margin_top = -150.0
 margin_right = 18.0
