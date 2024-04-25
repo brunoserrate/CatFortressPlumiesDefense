@@ -5,7 +5,7 @@ class_name SpawnAlliedController
 var positions: Array
 export var mana_rate: float = 1.0
 
-export(NodePath) var enemy_spawn
+export(NodePath) var enemy_spawner
 
 onready var ysort = $YSort
 onready var mana_points:RichTextLabel = $Panel/ManaPoints
@@ -18,6 +18,7 @@ func _ready():
 	searchRootPositionNodes()
 	connectToSummonEvents()
 	setManaPoints(mana_count)
+	print_debug(get_node(enemy_spawner))
 
 func _process(delta):
 	timer += delta
@@ -34,9 +35,9 @@ func spawn(unit):
 	var randomNumber = randi() % positions.size()
 	var spawnPosition = positions[randomNumber]
 	instance.position = spawnPosition.global_position
-	
-	instance.set_target_position(get_node(enemy_spawn).global_position)
-	
+
+	instance.set_target_position(get_node(enemy_spawner))
+
 	ysort.add_child(instance)
 
 	mana_count -= instance.cost
