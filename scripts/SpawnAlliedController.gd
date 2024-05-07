@@ -18,7 +18,6 @@ func _ready():
 	searchRootPositionNodes()
 	connectToSummonEvents()
 	setManaPoints(mana_count)
-	print_debug(get_node(enemy_spawner))
 
 func _process(delta):
 	timer += delta
@@ -36,7 +35,8 @@ func spawn(unit):
 	var spawnPosition = positions[randomNumber]
 	instance.position = spawnPosition.global_position
 
-	instance.set_target_position(get_node(enemy_spawner))
+	instance.set_velocity(Vector2.RIGHT)
+	instance.set_state(1)
 
 	ysort.add_child(instance)
 

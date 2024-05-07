@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Armature_tex_0.png-7d9fafa2db24d7a0547016f21216f407.stex"
+path="res://.import/ArmoredUnitSpriteSheet.png-fd8f5c67e59d5e300fa7b93b427ad2e4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Unities/Armature_tex_0.png"
-dest_files=[ "res://.import/Armature_tex_0.png-7d9fafa2db24d7a0547016f21216f407.stex" ]
+source_file="res://assets/Unities/ArmoredUnitSpriteSheet.png"
+dest_files=[ "res://.import/ArmoredUnitSpriteSheet.png-fd8f5c67e59d5e300fa7b93b427ad2e4.stex" ]
 
 [params]
 

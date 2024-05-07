@@ -37,6 +37,7 @@ window/stretch/mode="2d"
 [global]
 
 Phy=false
+view=false
 
 [gui]
 

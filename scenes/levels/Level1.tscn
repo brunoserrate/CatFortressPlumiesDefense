@@ -4,8 +4,8 @@
 [ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/SummonBtn.gd" type="Script" id=3]
 [ext_resource path="res://scenes/unities/ArmoredUnit.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/unities/ArmoredUnit2.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/unities/ArmoredUnit3.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/unities/ArmoredUnit3.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/unities/ArmoredUnit2.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/placeholders/crystal_dark_64x64_12f_20d.png" type="Texture" id=7]
 [ext_resource path="res://scripts/SpawnEnemyController.gd" type="Script" id=8]
 [ext_resource path="res://assets/placeholders/base_health_bar_progress copy.png" type="Texture" id=9]
@@ -13,10 +13,11 @@
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 33.0
-height = 104.0
+height = 218.0
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 26.0534
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 24.6667
+height = 64.6667
 
 [node name="Level1" type="Node2D"]
 
@@ -45,7 +46,7 @@ scale = Vector2( 3, 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCrystal/Area2D"]
 position = Vector2( 1, 4 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="CrystalHpBar" type="TextureProgress" parent="EnemyCrystal"]
 margin_left = -37.0
@@ -122,7 +123,7 @@ margin_bottom = 580.0
 icon_align = 1
 expand_icon = true
 script = ExtResource( 3 )
-unit_type = ExtResource( 5 )
+unit_type = ExtResource( 6 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon2"]
 anchor_left = 1.0
@@ -144,7 +145,7 @@ margin_bottom = 580.0
 icon_align = 1
 expand_icon = true
 script = ExtResource( 3 )
-unit_type = ExtResource( 6 )
+unit_type = ExtResource( 5 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon3"]
 anchor_left = 1.0

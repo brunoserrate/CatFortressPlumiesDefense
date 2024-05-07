@@ -21,6 +21,10 @@ var state = State.IDLE
 var current_target = null
 var attack_timer = 0
 
+
+func _ready():
+	$AnimatedSprite.play("run")
+
 func _process(delta):
 	match state:
 		State.IDLE:
@@ -28,9 +32,9 @@ func _process(delta):
 		State.MOVING:
 			move_and_collide(velocity * delta)
 
-			if current_target:
+			if is_instance_valid(current_target) and current_target != null and current_target.health > 0:
 				if (current_target.position - position).length() <= attack_range:
-					print_debug("Range: " + str((current_target.position - position).length()) + " Attack Range: " + str(attack_range))
+					# print_debug("Range: " + str((current_target.position - position).length()) + " Attack Range: " + str(attack_range))
 					state = State.ATTACKING
 		State.ATTACKING:
 			attack(delta)
@@ -40,6 +44,12 @@ func set_target_position(target):
 	velocity = direction * move_speed
 	current_target = target
 	state = State.MOVING
+
+func set_velocity(vel):
+	velocity = vel * move_speed
+
+func set_state(new_state):
+	state = new_state
 
 func receive_damage(damage):
 	health -= damage - defense
@@ -69,6 +79,6 @@ func attack(delta):
 		current_target.receive_damage(attack_power)
 		attack_timer = 0
 
-		if current_target == null || (current_target != null && current_target.health <= 0):
+		if !is_instance_valid(current_target) || (current_target != null && current_target.health <= 0):
 			current_target = null
 			state = State.MOVING
