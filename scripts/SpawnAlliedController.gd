@@ -7,7 +7,9 @@ export var mana_rate: float = 1.0
 
 export(NodePath) var enemy_spawner
 
-onready var ysort = $YSort
+export(NodePath) var ysort_path
+
+onready var ysort = null
 onready var mana_points:RichTextLabel = $Panel/ManaPoints
 
 var mana_count = 0
@@ -15,9 +17,12 @@ var timer = 0
 
 
 func _ready():
+	ysort = get_node(ysort_path)
 	searchRootPositionNodes()
 	connectToSummonEvents()
 	setManaPoints(mana_count)
+
+	add_to_group("AlliedSpawner")
 
 func _process(delta):
 	timer += delta
@@ -31,6 +36,8 @@ func spawn(unit):
 	if mana_count < instance.cost:
 		return
 
+	ysort.add_child(instance)
+
 	var randomNumber = randi() % positions.size()
 	var spawnPosition = positions[randomNumber]
 	instance.position = spawnPosition.global_position
@@ -38,7 +45,6 @@ func spawn(unit):
 	instance.set_velocity(Vector2.RIGHT)
 	instance.set_state(1)
 
-	ysort.add_child(instance)
 
 	mana_count -= instance.cost
 	setManaPoints(mana_count)

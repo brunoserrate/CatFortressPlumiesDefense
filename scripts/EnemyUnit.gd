@@ -12,7 +12,6 @@ export var attack_rate = 1.5
 export var attack_range = 80
 export var defense = 5
 export var max_health = 100
-export var cost = 10
 
 var velocity = Vector2.ZERO
 onready var health = max_health
@@ -29,7 +28,7 @@ func _ready():
 	hpBar.max_value = health
 	hpBar.value = health
 	hpBar.visible = false
-	add_to_group("AlliedUnit")
+	add_to_group("EnemyUnit")
 	$AnimatedSprite.play("run")
 
 func _process(delta):
@@ -48,10 +47,9 @@ func _process(delta):
 					state = GlobalEnums.UnitState.ATTACKING
 				else:
 					set_target_position(current_target)
-
 		GlobalEnums.UnitState.ATTACKING:
 			if(current_target == null || !is_instance_valid(current_target) || current_target.health <= 0):
-				set_velocity(Vector2.RIGHT)
+				set_velocity(Vector2.LEFT)
 				state = GlobalEnums.UnitState.MOVING
 				return
 
@@ -82,28 +80,15 @@ func receive_damage(damage):
 		die()
 
 func die():
+	yield(get_tree().create_timer(0.1), "timeout")
 	queue_free()
 
 func _on_AttackArea_area_entered(area):
-	print("Area entered: " + area.name + " " + area.get_parent().name)
 	var parent = area.get_parent()
-	if parent and parent.is_in_group("EnemyUnit"):
-		target_list.append(parent)
-		if(current_target != parent):
+	if parent and parent.is_in_group("AlliedUnit"):
+		if(current_target == null || !is_instance_valid(current_target) || current_target.health <= 0):
+			target_list.append(parent)
 			set_nearest_target(parent)
-		return
-	elif area.is_in_group("EnemyUnit"):
-		target_list.append(parent)
-		if(current_target != parent):
-			set_nearest_target(parent)
-		return
-
-	if parent and parent.is_in_group("EnemySpawner"):
-		print("Spawner")
-		target_list.append(parent)
-		if(current_target != parent):
-			set_nearest_target(parent)
-		return
 
 func attack(delta):
 	attack_timer += delta
@@ -121,19 +106,15 @@ func attack(delta):
 					target_list.remove(i)
 					break
 
-			current_target = null
-			set_velocity(Vector2.RIGHT)
-			state = GlobalEnums.UnitState.MOVING
-
-		if !is_instance_valid(current_target) || (current_target != null && current_target.health <= 0):
+		if !is_instance_valid(current_target) || current_target != null:
 			current_target = null
 			if(target_list.size() > 0):
 				set_nearest_target(target_list[0])
 			else:
-				set_velocity(Vector2.RIGHT)
+				set_velocity(Vector2.LEFT)
 				state = GlobalEnums.UnitState.MOVING
 	else:
-		set_velocity(Vector2.RIGHT)
+		set_velocity(Vector2.LEFT)
 		state = GlobalEnums.UnitState.MOVING
 
 func set_nearest_target(target):
