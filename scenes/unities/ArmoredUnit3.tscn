@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/AlliedUnit.gd" type="Script" id=1]
+[ext_resource path="res://assets/placeholders/base_health_bar_progress.png" type="Texture" id=2]
+[ext_resource path="res://assets/Unities/ArmoredUnit.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://assets/placeholders/base_health_bar_line.png" type="Texture" id=4]
+[ext_resource path="res://assets/placeholders/base_health_bar_progress copy.png" type="Texture" id=5]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 19.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 126.016
+
+[node name="ArmoredUnit" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource( 1 )
+move_speed = 60
+max_health = 40
+cost = 3
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+self_modulate = Color( 1, 0.196078, 0.196078, 1 )
+scale = Vector2( 0.7, 0.7 )
+frames = ExtResource( 3 )
+animation = "run"
+speed_scale = 0.9
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -5 )
+shape = SubResource( 1 )
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource( 2 )
+
+[node name="HpBar" type="TextureProgress" parent="."]
+margin_left = -17.0
+margin_top = -98.0
+margin_right = 23.0
+margin_bottom = -58.0
+value = 75.0
+texture_under = ExtResource( 5 )
+texture_over = ExtResource( 4 )
+texture_progress = ExtResource( 2 )
+fill_mode = 5
+tint_under = Color( 0, 0, 0, 1 )
+nine_patch_stretch = true
+
+[connection signal="area_entered" from="AttackArea" to="." method="_on_AttackArea_area_entered"]

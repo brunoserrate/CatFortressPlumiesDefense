@@ -8,14 +8,47 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "SpawnAlliedController",
+"language": "GDScript",
+"path": "res://scripts/SpawnAlliedController.gd"
+}, {
+"base": "Node2D",
+"class": "SpawnEnemyController",
+"language": "GDScript",
+"path": "res://scripts/SpawnEnemyController.gd"
+} ]
+_global_script_class_icons={
+"SpawnAlliedController": "",
+"SpawnEnemyController": ""
+}
+
 [application]
 
 config/name="Cat Fortress: Plumies Defense"
+run/main_scene="res://scenes/levels/Level1.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/stretch/mode="2d"
+
+[global]
+
+Phy=false
+view=false
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[layer_names]
+
+2d_physics/layer_1="AlliedBase"
+2d_physics/layer_2="EnemyBase"
+2d_physics/layer_3="AlliedUnit"
+2d_physics/layer_4="EnemyUnit"
 
 [physics]
 

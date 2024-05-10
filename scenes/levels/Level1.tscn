@@ -1,0 +1,181 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/Backgrounds/HallBackground.png" type="Texture" id=1]
+[ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/SummonBtn.gd" type="Script" id=3]
+[ext_resource path="res://scenes/unities/ArmoredUnit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/unities/ArmoredUnit3.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/unities/ArmoredUnit2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/placeholders/crystal_dark_64x64_12f_20d.png" type="Texture" id=7]
+[ext_resource path="res://scripts/SpawnEnemyController.gd" type="Script" id=8]
+[ext_resource path="res://assets/placeholders/base_health_bar_progress copy.png" type="Texture" id=9]
+[ext_resource path="res://assets/placeholders/base_health_bar_line.png" type="Texture" id=10]
+[ext_resource path="res://scenes/enemies/Enemy1.tscn" type="PackedScene" id=11]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 33.0
+height = 218.0
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 24.6667
+height = 64.6667
+
+[node name="Level1" type="Node2D"]
+
+[node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
+position = Vector2( -2, 32 )
+mana_rate = 0.5
+enemy_spawner = NodePath("../EnemyCrystal")
+ysort_path = NodePath("../YSort")
+
+[node name="PositionNodes" type="Node2D" parent="."]
+position = Vector2( 18, -186 )
+
+[node name="Position2D" type="Position2D" parent="PositionNodes"]
+position = Vector2( 112, 557 )
+
+[node name="Position2D2" type="Position2D" parent="PositionNodes"]
+position = Vector2( 150, 497 )
+
+[node name="Position2D3" type="Position2D" parent="PositionNodes"]
+position = Vector2( 170, 459 )
+
+[node name="EnemyCrystal" type="StaticBody2D" parent="."]
+position = Vector2( 986, 255 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 8 )
+spawn_rate = 3.5
+pos1_path = NodePath("Pos1")
+pos2_path = NodePath("Pos2")
+pos3_path = NodePath("Pos3")
+unit = ExtResource( 11 )
+ysort_path = NodePath("../YSort")
+
+[node name="Pos1" type="Position2D" parent="EnemyCrystal"]
+position = Vector2( -102, 7 )
+
+[node name="Pos2" type="Position2D" parent="EnemyCrystal"]
+position = Vector2( -102, 58 )
+
+[node name="Pos3" type="Position2D" parent="EnemyCrystal"]
+position = Vector2( -102, 121 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCrystal"]
+z_index = 5
+shape = SubResource( 2 )
+
+[node name="SpawnEnemyController" type="Sprite" parent="EnemyCrystal"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 7 )
+hframes = 12
+
+[node name="Area2D" type="Area2D" parent="EnemyCrystal"]
+scale = Vector2( 3, 3 )
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCrystal/Area2D"]
+position = Vector2( 1, 4 )
+shape = SubResource( 3 )
+
+[node name="CrystalHpBar" type="TextureProgress" parent="EnemyCrystal"]
+margin_left = -37.0
+margin_top = -150.0
+margin_right = 18.0
+margin_bottom = -95.0
+value = 75.0
+texture_under = ExtResource( 9 )
+texture_over = ExtResource( 10 )
+texture_progress = ExtResource( 9 )
+fill_mode = 5
+tint_under = Color( 0.262745, 0.262745, 0.262745, 1 )
+tint_over = Color( 0, 0, 0, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+radial_initial_angle = 90.0
+nine_patch_stretch = true
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -16.0
+margin_top = -250.0
+margin_right = 1032.0
+margin_bottom = 799.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="SummonBtns" type="Control" parent="."]
+margin_left = 74.0
+margin_top = 14.0
+margin_right = 488.0
+margin_bottom = 240.0
+
+[node name="Summon1" type="Button" parent="SummonBtns"]
+margin_left = 670.0
+margin_top = 480.0
+margin_right = 745.0
+margin_bottom = 580.0
+icon_align = 1
+expand_icon = true
+script = ExtResource( 3 )
+unit_type = ExtResource( 4 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon1"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -15.0
+margin_right = -5.0
+bbcode_enabled = true
+bbcode_text = "[right]0"
+text = "0"
+
+[node name="Summon2" type="Button" parent="SummonBtns"]
+margin_left = 765.0
+margin_top = 480.0
+margin_right = 840.0
+margin_bottom = 580.0
+icon_align = 1
+expand_icon = true
+script = ExtResource( 3 )
+unit_type = ExtResource( 6 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon2"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -15.0
+margin_right = -5.0
+bbcode_enabled = true
+bbcode_text = "[right]0"
+text = "0"
+
+[node name="Summon3" type="Button" parent="SummonBtns"]
+margin_left = 860.0
+margin_top = 480.0
+margin_right = 935.0
+margin_bottom = 580.0
+icon_align = 1
+expand_icon = true
+script = ExtResource( 3 )
+unit_type = ExtResource( 5 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon3"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -15.0
+margin_right = -5.0
+bbcode_enabled = true
+bbcode_text = "[right]0"
+text = "0"
