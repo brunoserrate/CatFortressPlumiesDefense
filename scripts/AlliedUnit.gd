@@ -24,6 +24,7 @@ var attack_timer = 0
 
 var hpBar: TextureProgress
 
+
 func _ready():
 	hpBar = $HpBar
 	hpBar.max_value = health
@@ -33,6 +34,8 @@ func _ready():
 	$AnimatedSprite.play("run")
 
 func _process(delta):
+	if($AnimatedSprite.animation == "attack"):
+		return
 	clear_invalid_targets()
 	if(target_list.size() > 0):
 		set_nearest_target(target_list[0])
@@ -85,7 +88,6 @@ func die():
 	queue_free()
 
 func _on_AttackArea_area_entered(area):
-	print("Area entered: " + area.name + " " + area.get_parent().name)
 	var parent = area.get_parent()
 	if parent and parent.is_in_group("EnemyUnit"):
 		target_list.append(parent)
@@ -99,7 +101,6 @@ func _on_AttackArea_area_entered(area):
 		return
 
 	if parent and parent.is_in_group("EnemySpawner"):
-		print("Spawner")
 		target_list.append(parent)
 		if(current_target != parent):
 			set_nearest_target(parent)
@@ -111,7 +112,22 @@ func attack(delta):
 	if attack_timer < attack_rate:
 		return
 
+	if(!is_instance_valid(current_target) || current_target == null):
+		if(target_list.size() > 0):
+			set_nearest_target(target_list[0])
+		else:
+			set_velocity(Vector2.RIGHT)
+			state = GlobalEnums.UnitState.MOVING
+			return
+
 	if is_instance_valid(current_target):
+		$AnimatedSprite.play("attack")
+		yield($AnimatedSprite, "animation_finished")
+
+		if(!is_instance_valid(current_target) || current_target == null):
+			$AnimatedSprite.play("run")
+			return
+
 		current_target.receive_damage(attack_power)
 		attack_timer = 0
 
@@ -135,6 +151,8 @@ func attack(delta):
 	else:
 		set_velocity(Vector2.RIGHT)
 		state = GlobalEnums.UnitState.MOVING
+
+	$AnimatedSprite.play("run")
 
 func set_nearest_target(target):
 	if target == null || !is_instance_valid(target):

@@ -2,25 +2,25 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/crystal_dark_64x64_12f_20d.png-3611f92ac87b17339a10aa7cc437d0df.stex"
+path="res://.import/ArmoredUnitSpriteSheet.png-b9839aaef060aae2fe292190282177a4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholders/crystal_dark_64x64_12f_20d.png"
-dest_files=[ "res://.import/crystal_dark_64x64_12f_20d.png-3611f92ac87b17339a10aa7cc437d0df.stex" ]
+source_file="res://assets/Unities/Soldier/ArmoredUnitSpriteSheet.png"
+dest_files=[ "res://.import/ArmoredUnitSpriteSheet.png-b9839aaef060aae2fe292190282177a4.stex" ]
 
 [params]
 
 compress/mode=0
-compress/lossy_quality=1.0
+compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

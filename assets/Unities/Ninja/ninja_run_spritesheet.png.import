@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ArmoredUnitSpriteSheet.png-fd8f5c67e59d5e300fa7b93b427ad2e4.stex"
+path="res://.import/ninja_run_spritesheet.png-5dd4210b0287a35adf67741119956735.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Unities/ArmoredUnitSpriteSheet.png"
-dest_files=[ "res://.import/ArmoredUnitSpriteSheet.png-fd8f5c67e59d5e300fa7b93b427ad2e4.stex" ]
+source_file="res://assets/Unities/Ninja/ninja_run_spritesheet.png"
+dest_files=[ "res://.import/ninja_run_spritesheet.png-5dd4210b0287a35adf67741119956735.stex" ]
 
 [params]
 
