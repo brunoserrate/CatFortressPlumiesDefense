@@ -19,7 +19,7 @@ var state = GlobalEnums.UnitState.IDLE
 
 var current_target = null
 var target_list = []
-var attack_timer = 0
+onready var attack_timer = attack_rate
 
 var hpBar: TextureProgress
 
@@ -41,6 +41,7 @@ func _process(delta):
 			pass
 		GlobalEnums.UnitState.MOVING:
 			move_and_collide(velocity * delta)
+			attack_timer = attack_rate
 
 			if is_instance_valid(current_target) and current_target != null and current_target.health > 0:
 				if (current_target.global_position - global_position).length() <= attack_range:
