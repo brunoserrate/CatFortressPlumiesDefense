@@ -20,6 +20,8 @@ onready var ysort = null
 
 var timer = 0
 onready var animation_player = $AnimationPlayer
+onready var animated_sprite = $AnimatedSprite
+var died = false
 
 # Hp Bar Texture Progress Bar
 var hpBar: TextureProgress
@@ -39,12 +41,18 @@ func _ready():
 	add_to_group("EnemySpawner")
 
 func _process(delta):
+	if(died):
+		return
+
 	timer += delta
 	if timer >= spawn_rate:
 		timer = 0
 		spawnUnit()
 
 func receive_damage(damage):
+	if(died):
+		return
+
 	health -= damage
 	hpBar.value -= damage
 
@@ -79,7 +87,9 @@ func set_paths():
 		pos3 = get_node(pos3_path)
 
 func destroy():
-	yield(get_tree().create_timer(0.1), "timeout")
+	died = true
+	$AnimatedSprite.play("destroyed")
+	yield($AnimatedSprite, "animation_finished")
 	EventBusSingleton.emit_event("enemy_base_destroyed")
 	PauseManager.pause()
 	queue_free()

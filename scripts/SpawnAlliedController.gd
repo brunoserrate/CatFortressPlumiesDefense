@@ -15,9 +15,11 @@ var mana_count = 0
 var timer = 0
 
 onready var animation_player = $AnimationPlayer
+onready var animated_sprite = $AnimatedSprite
 
 func _ready():
 	EventBusSingleton.register_event("mana_changed")
+	EventBusSingleton.connect_event("enemy_base_destroyed", self, "_on_enemy_base_destroyed")
 	animation_player.play("crystalIdleAnimation")
 	ysort = get_node(ysort_path)
 	searchRootPositionNodes()
@@ -79,3 +81,6 @@ func setManaPoints(value):
 
 func get_mana_points():
 	return mana_count
+
+func _on_enemy_base_destroyed():
+	animated_sprite.z_index -= 1
