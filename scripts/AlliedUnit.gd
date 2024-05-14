@@ -24,6 +24,8 @@ onready var attack_timer = attack_rate
 
 var hpBar: TextureProgress
 
+var died = false
+
 
 func _ready():
 	hpBar = $HpBar
@@ -75,6 +77,9 @@ func set_state(new_state):
 	state = new_state
 
 func receive_damage(damage):
+	if(died):
+		return
+
 	var calc_damage = damage - defense
 	health -= calc_damage if calc_damage > 0 else 1
 
@@ -86,6 +91,7 @@ func receive_damage(damage):
 		die()
 
 func die():
+	died = true
 	queue_free()
 
 func _on_AttackArea_area_entered(area):

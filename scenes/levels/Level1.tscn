@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/Backgrounds/HallBackground.png" type="Texture" id=1]
 [ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/placeholders/base_health_bar_progress copy.png" type="Texture" id=9]
 [ext_resource path="res://assets/placeholders/base_health_bar_line.png" type="Texture" id=10]
 [ext_resource path="res://scenes/enemies/Enemy1.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/VictoryPanel.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 33.0
@@ -24,7 +25,7 @@ height = 64.6667
 
 [node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
 position = Vector2( -2, 32 )
-mana_rate = 0.5
+mana_rate = 0.1
 enemy_spawner = NodePath("../EnemyCrystal")
 ysort_path = NodePath("../YSort")
 
@@ -107,6 +108,10 @@ margin_right = 1032.0
 margin_bottom = 799.0
 texture = ExtResource( 1 )
 expand = true
+
+[node name="VictoryPanel" parent="." instance=ExtResource( 12 )]
+margin_right = 1024.0
+margin_bottom = 600.0
 
 [node name="SummonBtns" type="Control" parent="."]
 margin_left = 74.0

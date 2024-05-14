@@ -20,6 +20,7 @@ var state = GlobalEnums.UnitState.IDLE
 var current_target = null
 var target_list = []
 onready var attack_timer = attack_rate
+var died = false
 
 var hpBar: TextureProgress
 
@@ -70,6 +71,9 @@ func set_state(new_state):
 	state = new_state
 
 func receive_damage(damage):
+	if(died):
+		return
+
 	var calc_damage = damage - defense
 	health -= calc_damage if calc_damage > 0 else 1
 
@@ -81,6 +85,8 @@ func receive_damage(damage):
 		die()
 
 func die():
+	died = true
+
 	yield(get_tree().create_timer(0.1), "timeout")
 	queue_free()
 

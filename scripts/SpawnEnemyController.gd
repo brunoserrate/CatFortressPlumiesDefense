@@ -18,13 +18,13 @@ export(NodePath) var ysort_path
 
 onready var ysort = null
 
-
 var timer = 0
 
 # Hp Bar Texture Progress Bar
 var hpBar: TextureProgress
 
 func _ready():
+	EventBusSingleton.register_event("enemy_base_destroyed")
 	ysort = get_node(ysort_path)
 	hpBar = $CrystalHpBar
 	hpBar.max_value = health
@@ -78,4 +78,6 @@ func set_paths():
 
 func destroy():
 	yield(get_tree().create_timer(0.1), "timeout")
+	EventBusSingleton.emit_event("enemy_base_destroyed")
+	PauseManager.pause()
 	queue_free()
