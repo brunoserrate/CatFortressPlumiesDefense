@@ -134,6 +134,7 @@ func set_nearest_target(target):
 
 	if (target.global_position - global_position).length() < (current_target.global_position - global_position).length():
 		current_target = target
+		sort_target_list()
 		return
 
 func clear_invalid_targets():
@@ -144,3 +145,18 @@ func clear_invalid_targets():
 		if target_list[i] == null or !is_instance_valid(target_list[i]):
 			target_list.remove(i)
 			break
+
+func sort_target_list():
+	if(target_list.size() <= 0):
+		return
+
+	target_list.sort_custom(self, "sort_target")
+
+func sort_target(a, b):
+	if a == null or b == null:
+		return 0
+
+	if (a.global_position - global_position).length() < (b.global_position - global_position).length():
+		return -1
+	else:
+		return 1
