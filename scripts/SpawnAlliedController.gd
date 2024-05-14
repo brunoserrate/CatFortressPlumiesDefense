@@ -1,6 +1,6 @@
-extends Node2D
-
 class_name SpawnAlliedController
+
+extends Node2D
 
 var positions: Array
 export var mana_rate: float = 1.0
@@ -10,13 +10,15 @@ export(NodePath) var enemy_spawner
 export(NodePath) var ysort_path
 
 onready var ysort = null
-onready var mana_points:RichTextLabel = $Panel/ManaPoints
 
 var mana_count = 0
 var timer = 0
 
+onready var animation_player = $AnimationPlayer
 
 func _ready():
+	EventBusSingleton.register_event("mana_changed")
+	animation_player.play("crystalIdleAnimation")
 	ysort = get_node(ysort_path)
 	searchRootPositionNodes()
 	connectToSummonEvents()
@@ -73,7 +75,7 @@ func searchRootPositionNodes():
 			break
 
 func setManaPoints(value):
-	mana_points.bbcode_text = "[center][right]" + str(value)
+	EventBusSingleton.emit_event("mana_changed", value)
 
 func get_mana_points():
 	return mana_count

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/Backgrounds/HallBackground.png" type="Texture" id=1]
 [ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
@@ -6,43 +6,46 @@
 [ext_resource path="res://scenes/unities/HeroUnit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/unities/ArmoredUnit3.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/unities/NinjaUnit.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/placeholders/crystal_dark_64x64_12f_20d.png" type="Texture" id=7]
+[ext_resource path="res://assets/Crystals/EnemyCrystalDestroyedAnimation.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://scripts/SpawnEnemyController.gd" type="Script" id=8]
 [ext_resource path="res://assets/placeholders/base_health_bar_progress copy.png" type="Texture" id=9]
 [ext_resource path="res://assets/placeholders/base_health_bar_line.png" type="Texture" id=10]
 [ext_resource path="res://scenes/enemies/Enemy1.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/VictoryPanel.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/Crystals/crystalIdleAnimation.tres" type="Animation" id=13]
+[ext_resource path="res://icon.png" type="Texture" id=14]
+[ext_resource path="res://scenes/levels/ManaPointsPanel.gd" type="Script" id=15]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 33.0
-height = 218.0
+radius = 32.0
+height = 190.0
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 24.6667
+radius = 38.3333
 height = 64.6667
 
 [node name="Level1" type="Node2D"]
 
 [node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
-position = Vector2( -2, 32 )
+position = Vector2( 113, 270 )
 mana_rate = 0.1
 enemy_spawner = NodePath("../EnemyCrystal")
 ysort_path = NodePath("../YSort")
 
 [node name="PositionNodes" type="Node2D" parent="."]
-position = Vector2( 18, -186 )
+position = Vector2( -177, -210 )
 
-[node name="Position2D" type="Position2D" parent="PositionNodes"]
-position = Vector2( 112, 557 )
+[node name="Top" type="Position2D" parent="PositionNodes"]
+position = Vector2( 152, 456 )
 
-[node name="Position2D2" type="Position2D" parent="PositionNodes"]
-position = Vector2( 150, 497 )
+[node name="Middle" type="Position2D" parent="PositionNodes"]
+position = Vector2( 150, 508 )
 
-[node name="Position2D3" type="Position2D" parent="PositionNodes"]
-position = Vector2( 170, 459 )
+[node name="Bot" type="Position2D" parent="PositionNodes"]
+position = Vector2( 149, 551 )
 
 [node name="EnemyCrystal" type="StaticBody2D" parent="."]
-position = Vector2( 986, 255 )
+position = Vector2( 970, 256 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 8 )
@@ -53,23 +56,29 @@ pos3_path = NodePath("Pos3")
 unit = ExtResource( 11 )
 ysort_path = NodePath("../YSort")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyCrystal"]
+playback_speed = 0.7
+anims/idle = ExtResource( 13 )
+
 [node name="Pos1" type="Position2D" parent="EnemyCrystal"]
-position = Vector2( -102, 7 )
+position = Vector2( 100, 16 )
 
 [node name="Pos2" type="Position2D" parent="EnemyCrystal"]
-position = Vector2( -102, 58 )
+position = Vector2( 100, 67 )
 
 [node name="Pos3" type="Position2D" parent="EnemyCrystal"]
-position = Vector2( -102, 121 )
+position = Vector2( 100, 130 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCrystal"]
+position = Vector2( 0, 16 )
 z_index = 5
 shape = SubResource( 2 )
 
-[node name="SpawnEnemyController" type="Sprite" parent="EnemyCrystal"]
-scale = Vector2( 3, 3 )
-texture = ExtResource( 7 )
-hframes = 12
+[node name="AnimatedSprite" type="AnimatedSprite" parent="EnemyCrystal"]
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+frames = ExtResource( 7 )
+animation = "destroyed"
 
 [node name="Area2D" type="Area2D" parent="EnemyCrystal"]
 scale = Vector2( 3, 3 )
@@ -81,10 +90,10 @@ position = Vector2( 1, 4 )
 shape = SubResource( 3 )
 
 [node name="CrystalHpBar" type="TextureProgress" parent="EnemyCrystal"]
-margin_left = -37.0
-margin_top = -150.0
-margin_right = 18.0
-margin_bottom = -95.0
+margin_left = -26.0
+margin_top = -170.0
+margin_right = 29.0
+margin_bottom = -115.0
 value = 75.0
 texture_under = ExtResource( 9 )
 texture_over = ExtResource( 10 )
@@ -184,3 +193,31 @@ margin_right = -5.0
 bbcode_enabled = true
 bbcode_text = "[right]0"
 text = "0"
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 929.0
+margin_top = 447.0
+margin_right = 1009.0
+margin_bottom = 487.0
+script = ExtResource( 15 )
+
+[node name="ManaPoints" type="RichTextLabel" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_right = -5.0
+bbcode_enabled = true
+bbcode_text = "[center][right]0"
+text = "0"
+fit_content_height = true
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 5.0
+margin_top = -15.0
+margin_right = 35.0
+margin_bottom = 15.0
+texture = ExtResource( 14 )
+expand = true

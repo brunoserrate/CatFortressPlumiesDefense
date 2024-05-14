@@ -1,6 +1,6 @@
-extends Node2D
-
 class_name SpawnEnemyController
+
+extends Node2D
 
 export var health = 100
 export var spawn_rate = 1.5
@@ -19,12 +19,14 @@ export(NodePath) var ysort_path
 onready var ysort = null
 
 var timer = 0
+onready var animation_player = $AnimationPlayer
 
 # Hp Bar Texture Progress Bar
 var hpBar: TextureProgress
 
 func _ready():
 	EventBusSingleton.register_event("enemy_base_destroyed")
+	animation_player.play("idle")
 	ysort = get_node(ysort_path)
 	hpBar = $CrystalHpBar
 	hpBar.max_value = health
