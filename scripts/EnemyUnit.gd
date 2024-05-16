@@ -92,7 +92,7 @@ func die():
 
 func _on_AttackArea_area_entered(area):
 	var parent = area.get_parent()
-	if parent and parent.is_in_group("AlliedUnit"):
+	if parent and (parent.is_in_group("AlliedUnit") || parent.is_in_group("AlliedSpawner")):
 		if(current_target == null || !is_instance_valid(current_target) || current_target.health <= 0):
 			target_list.append(parent)
 			set_nearest_target(parent)

@@ -3,6 +3,7 @@ class_name SpawnAlliedController
 extends Node2D
 
 var positions: Array
+export var health: int = 1
 export var mana_rate: float = 1.0
 
 export(NodePath) var enemy_spawner
@@ -17,9 +18,13 @@ var timer = 0
 onready var animation_player = $AnimationPlayer
 onready var animated_sprite = $AnimatedSprite
 
+var died = false
+
 func _ready():
 	EventBusSingleton.register_event("mana_changed")
+	EventBusSingleton.register_event("allied_base_destroyed")
 	EventBusSingleton.connect_event("enemy_base_destroyed", self, "_on_enemy_base_destroyed")
+	add_to_group("AlliedSpawner")
 	animation_player.play("crystalIdleAnimation")
 	ysort = get_node(ysort_path)
 	searchRootPositionNodes()
@@ -53,6 +58,15 @@ func spawn(unit):
 	mana_count -= instance.cost
 	setManaPoints(mana_count)
 
+func receive_damage(damage):
+	if(died):
+		return
+
+	health -= damage
+	# hpBar.value -= damage
+
+	if health <= 0:
+		destroy()
 
 func connectToSummonEvents():
 	var btns = []
@@ -81,6 +95,15 @@ func setManaPoints(value):
 
 func get_mana_points():
 	return mana_count
+
+func destroy():
+	died = true
+	$AnimatedSprite.play("destroyed")
+	yield($AnimatedSprite, "animation_finished")
+	EventBusSingleton.emit_event("allied_base_destroyed")
+	PauseManager.pause()
+	queue_free()
+
 
 func _on_enemy_base_destroyed():
 	animated_sprite.z_index -= 1

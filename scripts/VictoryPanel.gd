@@ -7,5 +7,4 @@ func _ready():
 	panelBG.visible = false
 
 func _on_enemy_base_destroyed():
-	print("Victory Panel")
 	panelBG.visible = true
