@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ninja_summon_button.png-da2d569bde429734f3bf6152b03a9c2b.stex"
+path="res://.import/ninja_summon_hover_button.png-13cf0ffdadb619567f7872e3859f8c94.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/ButtonsSummons/ninja_summon_button.png"
-dest_files=[ "res://.import/ninja_summon_button.png-da2d569bde429734f3bf6152b03a9c2b.stex" ]
+source_file="res://assets/UI/ButtonsSummons/Ninja/ninja_summon_hover_button.png"
+dest_files=[ "res://.import/ninja_summon_hover_button.png-13cf0ffdadb619567f7872e3859f8c94.stex" ]
 
 [params]
 

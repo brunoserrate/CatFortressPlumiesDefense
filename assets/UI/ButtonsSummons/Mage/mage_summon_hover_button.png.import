@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/knigh_summon_icon.png-2f6fd9f252e4ecca0daa24007f101f1b.stex"
+path="res://.import/mage_summon_hover_button.png-6cfd93cb6e0757404506e1deea8cf7ba.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/ButtonsSummons/knigh_summon_icon.png"
-dest_files=[ "res://.import/knigh_summon_icon.png-2f6fd9f252e4ecca0daa24007f101f1b.stex" ]
+source_file="res://assets/UI/ButtonsSummons/Mage/mage_summon_hover_button.png"
+dest_files=[ "res://.import/mage_summon_hover_button.png-6cfd93cb6e0757404506e1deea8cf7ba.stex" ]
 
 [params]
 

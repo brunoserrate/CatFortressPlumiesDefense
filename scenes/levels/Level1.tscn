@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/Backgrounds/HallBackground.png" type="Texture" id=1]
 [ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/SummonBtn.gd" type="Script" id=3]
+[ext_resource path="res://assets/UI/ButtonsSummons/Hero/hero_summon_hover_button.png" type="Texture" id=4]
 [ext_resource path="res://scenes/unities/ArmoredUnit3.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/AtomicAge-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/Crystals/EnemyCrystalDestroyedAnimation.tres" type="SpriteFrames" id=7]
@@ -12,15 +13,25 @@
 [ext_resource path="res://scenes/enemies/Enemy1.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/VictoryPanel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/Crystals/crystalIdleAnimation.tres" type="Animation" id=13]
+[ext_resource path="res://assets/UI/ButtonsSummons/Hero/hero_summon_pressed_button.png" type="Texture" id=14]
 [ext_resource path="res://scripts/ManaPointsPanel.gd" type="Script" id=15]
 [ext_resource path="res://scenes/DefeatedPanel.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/UI/HealthBar/enemy_health_bar_fill.png" type="Texture" id=17]
 [ext_resource path="res://assets/UI/mana_bg.png" type="Texture" id=18]
 [ext_resource path="res://assets/UI/mana_icon.png" type="Texture" id=19]
-[ext_resource path="res://assets/UI/ButtonsSummons/knigh_summon_icon.png" type="Texture" id=20]
-[ext_resource path="res://assets/UI/ButtonsSummons/hero_summon_button.png" type="Texture" id=21]
-[ext_resource path="res://assets/UI/ButtonsSummons/ninja_summon_button.png" type="Texture" id=22]
+[ext_resource path="res://assets/UI/ButtonsSummons/Knight/knigh_summon_button.png" type="Texture" id=20]
+[ext_resource path="res://assets/UI/ButtonsSummons/Hero/hero_summon_button.png" type="Texture" id=21]
+[ext_resource path="res://assets/UI/ButtonsSummons/Ninja/ninja_summon_button.png" type="Texture" id=22]
 [ext_resource path="res://assets/UI/ButtonsSummons/summon_button_outlin.png" type="Texture" id=23]
+[ext_resource path="res://assets/UI/ButtonsSummons/Ninja/ninja_summon_pressed_button.png" type="Texture" id=24]
+[ext_resource path="res://assets/UI/ButtonsSummons/Ninja/ninja_summon_hover_button.png" type="Texture" id=25]
+[ext_resource path="res://assets/UI/ButtonsSummons/Knight/knigh_summon_hover_button.png" type="Texture" id=26]
+[ext_resource path="res://assets/UI/ButtonsSummons/Knight/knigh_summon_pressed_button.png" type="Texture" id=27]
+[ext_resource path="res://assets/UI/ButtonsSummons/Ninja/ninja_summon_button_disabled.png" type="Texture" id=28]
+[ext_resource path="res://assets/UI/ButtonsSummons/Hero/hero_summon_button_disabled.png" type="Texture" id=29]
+[ext_resource path="res://assets/UI/ButtonsSummons/Knight/knigh_summon_button_disabled.png" type="Texture" id=30]
+[ext_resource path="res://scenes/unities/NinjaUnit.tscn" type="PackedScene" id=31]
+[ext_resource path="res://scenes/unities/HeroUnit.tscn" type="PackedScene" id=32]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 32.0
@@ -140,8 +151,10 @@ margin_left = 632.0
 margin_top = 496.0
 margin_right = 714.0
 margin_bottom = 576.0
-action_mode = 0
-texture_normal = ExtResource( 21 )
+texture_normal = ExtResource( 20 )
+texture_pressed = ExtResource( 27 )
+texture_hover = ExtResource( 26 )
+texture_disabled = ExtResource( 30 )
 expand = true
 stretch_mode = 5
 script = ExtResource( 3 )
@@ -174,12 +187,14 @@ margin_left = 742.0
 margin_top = 496.0
 margin_right = 824.0
 margin_bottom = 576.0
-action_mode = 0
 texture_normal = ExtResource( 22 )
+texture_pressed = ExtResource( 24 )
+texture_hover = ExtResource( 25 )
+texture_disabled = ExtResource( 28 )
 expand = true
 stretch_mode = 5
 script = ExtResource( 3 )
-unit_type = ExtResource( 5 )
+unit_type = ExtResource( 31 )
 
 [node name="SummonAvailableOutline" type="TextureRect" parent="UI/SummonBtns/TextureButton2"]
 anchor_right = 1.0
@@ -208,12 +223,14 @@ margin_left = 853.0
 margin_top = 496.0
 margin_right = 935.0
 margin_bottom = 576.0
-action_mode = 0
-texture_normal = ExtResource( 20 )
+texture_normal = ExtResource( 21 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 29 )
 expand = true
 stretch_mode = 5
 script = ExtResource( 3 )
-unit_type = ExtResource( 5 )
+unit_type = ExtResource( 32 )
 
 [node name="SummonAvailableOutline" type="TextureRect" parent="UI/SummonBtns/TextureButton3"]
 anchor_right = 1.0

@@ -25,8 +25,10 @@ func _ready():
 func _process(delta):
 	if(spawn_allied_controller.get_mana_points() < unit_node.cost):
 		summon_outline.visible = false
+		disabled = true
 	else:
 		summon_outline.visible = true
+		disabled = false
 
 func _on_TextureButton_pressed():
 	if(spawn_allied_controller.get_mana_points() < unit_node.cost):

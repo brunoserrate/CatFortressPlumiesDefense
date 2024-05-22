@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mage_summon_button.png-34b8e159eeeca76c16a2bbe0e27d4467.stex"
+path="res://.import/archer_summon_button_disabled.png-17ca274e36573e331782a084ae55294a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/ButtonsSummons/mage_summon_button.png"
-dest_files=[ "res://.import/mage_summon_button.png-34b8e159eeeca76c16a2bbe0e27d4467.stex" ]
+source_file="res://assets/UI/ButtonsSummons/Archer/archer_summon_button_disabled.png"
+dest_files=[ "res://.import/archer_summon_button_disabled.png-17ca274e36573e331782a084ae55294a.stex" ]
 
 [params]
 

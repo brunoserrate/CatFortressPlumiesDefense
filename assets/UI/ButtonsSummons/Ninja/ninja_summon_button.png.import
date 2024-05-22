@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/archer_summon_button.png-7a7cf0f571ab4aa54bb104d3a9945d0f.stex"
+path="res://.import/ninja_summon_button.png-ee4bc9dea1fecd08f6e7b39a2d5d069d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/ButtonsSummons/archer_summon_button.png"
-dest_files=[ "res://.import/archer_summon_button.png-7a7cf0f571ab4aa54bb104d3a9945d0f.stex" ]
+source_file="res://assets/UI/ButtonsSummons/Ninja/ninja_summon_button.png"
+dest_files=[ "res://.import/ninja_summon_button.png-ee4bc9dea1fecd08f6e7b39a2d5d069d.stex" ]
 
 [params]
 
