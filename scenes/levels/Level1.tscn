@@ -1,21 +1,26 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/Backgrounds/HallBackground.png" type="Texture" id=1]
 [ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/SummonBtn.gd" type="Script" id=3]
-[ext_resource path="res://scenes/unities/HeroUnit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/unities/ArmoredUnit3.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/unities/NinjaUnit.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/fonts/AtomicAge-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/Crystals/EnemyCrystalDestroyedAnimation.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://scripts/SpawnEnemyController.gd" type="Script" id=8]
-[ext_resource path="res://assets/placeholders/base_health_bar_progress copy.png" type="Texture" id=9]
-[ext_resource path="res://assets/placeholders/base_health_bar_line.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/HealthBar/health_bar_outline.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/HealthBar/bg_health_bar.png" type="Texture" id=10]
 [ext_resource path="res://scenes/enemies/Enemy1.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/VictoryPanel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/Crystals/crystalIdleAnimation.tres" type="Animation" id=13]
-[ext_resource path="res://icon.png" type="Texture" id=14]
-[ext_resource path="res://scenes/levels/ManaPointsPanel.gd" type="Script" id=15]
+[ext_resource path="res://scripts/ManaPointsPanel.gd" type="Script" id=15]
 [ext_resource path="res://scenes/DefeatedPanel.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/UI/HealthBar/enemy_health_bar_fill.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/mana_bg.png" type="Texture" id=18]
+[ext_resource path="res://assets/UI/mana_icon.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/ButtonsSummons/knigh_summon_icon.png" type="Texture" id=20]
+[ext_resource path="res://assets/UI/ButtonsSummons/hero_summon_button.png" type="Texture" id=21]
+[ext_resource path="res://assets/UI/ButtonsSummons/ninja_summon_button.png" type="Texture" id=22]
+[ext_resource path="res://assets/UI/ButtonsSummons/summon_button_outlin.png" type="Texture" id=23]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 32.0
@@ -25,11 +30,20 @@ height = 190.0
 radius = 38.3333
 height = 64.6667
 
+[sub_resource type="DynamicFont" id=4]
+size = 20
+outline_size = 1
+extra_spacing_char = -2
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 22
+font_data = ExtResource( 6 )
+
 [node name="Level1" type="Node2D"]
 
 [node name="SpawnAlliedController" parent="." instance=ExtResource( 2 )]
 position = Vector2( 113, 270 )
-mana_rate = 0.1
 enemy_spawner = NodePath("../EnemyCrystal")
 ysort_path = NodePath("../YSort")
 
@@ -62,13 +76,13 @@ playback_speed = 0.7
 anims/idle = ExtResource( 13 )
 
 [node name="Pos1" type="Position2D" parent="EnemyCrystal"]
-position = Vector2( 100, 16 )
+position = Vector2( 100, -8 )
 
 [node name="Pos2" type="Position2D" parent="EnemyCrystal"]
-position = Vector2( 100, 67 )
+position = Vector2( 100, 43 )
 
 [node name="Pos3" type="Position2D" parent="EnemyCrystal"]
-position = Vector2( 100, 130 )
+position = Vector2( 100, 106 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCrystal"]
 position = Vector2( 0, 16 )
@@ -91,22 +105,171 @@ position = Vector2( 1, 4 )
 shape = SubResource( 3 )
 
 [node name="CrystalHpBar" type="TextureProgress" parent="EnemyCrystal"]
-margin_left = -26.0
-margin_top = -170.0
-margin_right = 29.0
-margin_bottom = -115.0
-value = 75.0
-texture_under = ExtResource( 9 )
-texture_over = ExtResource( 10 )
-texture_progress = ExtResource( 9 )
-fill_mode = 5
-tint_under = Color( 0.262745, 0.262745, 0.262745, 1 )
-tint_over = Color( 0, 0, 0, 1 )
-tint_progress = Color( 1, 0, 0, 1 )
-radial_initial_angle = 90.0
+margin_left = -90.0
+margin_top = -202.0
+margin_right = 123.0
+margin_bottom = -62.0
+value = 50.0
+texture_under = ExtResource( 10 )
+texture_over = ExtResource( 9 )
+texture_progress = ExtResource( 17 )
 nine_patch_stretch = true
 
 [node name="YSort" type="YSort" parent="."]
+
+[node name="Panels" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="VictoryPanel" parent="Panels" instance=ExtResource( 12 )]
+mouse_filter = 2
+
+[node name="DefeatedPanel" parent="Panels" instance=ExtResource( 16 )]
+mouse_filter = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 40
+
+[node name="SummonBtns" type="Control" parent="UI"]
+margin_left = 74.0
+margin_top = 14.0
+margin_right = 488.0
+margin_bottom = 240.0
+
+[node name="TextureButton1" type="TextureButton" parent="UI/SummonBtns"]
+margin_left = 632.0
+margin_top = 496.0
+margin_right = 714.0
+margin_bottom = 576.0
+action_mode = 0
+texture_normal = ExtResource( 21 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 3 )
+unit_type = ExtResource( 5 )
+
+[node name="SummonAvailableOutline" type="TextureRect" parent="UI/SummonBtns/TextureButton1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 10.0
+margin_bottom = 9.0
+texture = ExtResource( 23 )
+expand = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/SummonBtns/TextureButton1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -29.0
+margin_right = -37.0
+margin_bottom = -81.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=black][right]99"
+text = "99"
+
+[node name="TextureButton2" type="TextureButton" parent="UI/SummonBtns"]
+margin_left = 742.0
+margin_top = 496.0
+margin_right = 824.0
+margin_bottom = 576.0
+action_mode = 0
+texture_normal = ExtResource( 22 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 3 )
+unit_type = ExtResource( 5 )
+
+[node name="SummonAvailableOutline" type="TextureRect" parent="UI/SummonBtns/TextureButton2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 10.0
+margin_bottom = 9.0
+texture = ExtResource( 23 )
+expand = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/SummonBtns/TextureButton2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -29.0
+margin_right = -37.0
+margin_bottom = -81.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=black][right]99"
+text = "99"
+
+[node name="TextureButton3" type="TextureButton" parent="UI/SummonBtns"]
+margin_left = 853.0
+margin_top = 496.0
+margin_right = 935.0
+margin_bottom = 576.0
+action_mode = 0
+texture_normal = ExtResource( 20 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 3 )
+unit_type = ExtResource( 5 )
+
+[node name="SummonAvailableOutline" type="TextureRect" parent="UI/SummonBtns/TextureButton3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 10.0
+margin_bottom = 9.0
+texture = ExtResource( 23 )
+expand = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/SummonBtns/TextureButton3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -29.0
+margin_right = -37.0
+margin_bottom = -81.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=black][right]99"
+text = "99"
+
+[node name="ManaPointsPanel" type="TextureRect" parent="UI"]
+margin_left = 840.0
+margin_top = 372.0
+margin_right = 1078.0
+margin_bottom = 555.0
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 15 )
+
+[node name="ManaPoints" type="RichTextLabel" parent="UI/ManaPointsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 122.0
+margin_top = 45.0
+margin_right = -70.0
+margin_bottom = -78.0
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center][right]900"
+text = "900"
+fit_content_height = true
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="UI/ManaPointsPanel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 26.0
+margin_top = -46.5
+margin_right = 149.0
+margin_bottom = 34.5
+texture = ExtResource( 19 )
+expand = true
 
 [node name="Background" type="TextureRect" parent="."]
 show_behind_parent = true
@@ -118,121 +281,3 @@ margin_right = 1032.0
 margin_bottom = 799.0
 texture = ExtResource( 1 )
 expand = true
-
-[node name="VictoryPanel" parent="." instance=ExtResource( 12 )]
-margin_right = 1024.0
-margin_bottom = 600.0
-
-[node name="DefeatedPanel" parent="." instance=ExtResource( 16 )]
-
-[node name="SummonBtns" type="Control" parent="."]
-margin_left = 74.0
-margin_top = 14.0
-margin_right = 488.0
-margin_bottom = 240.0
-
-[node name="Summon1" type="Button" parent="SummonBtns"]
-margin_left = 670.0
-margin_top = 480.0
-margin_right = 745.0
-margin_bottom = 580.0
-icon_align = 1
-expand_icon = true
-script = ExtResource( 3 )
-unit_type = ExtResource( 4 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon1"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -15.0
-margin_right = -5.0
-bbcode_enabled = true
-bbcode_text = "[right]0"
-text = "0"
-
-[node name="Summon2" type="Button" parent="SummonBtns"]
-margin_left = 765.0
-margin_top = 480.0
-margin_right = 840.0
-margin_bottom = 580.0
-icon_align = 1
-expand_icon = true
-script = ExtResource( 3 )
-unit_type = ExtResource( 6 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon2"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -15.0
-margin_right = -5.0
-bbcode_enabled = true
-bbcode_text = "[right]0"
-text = "0"
-
-[node name="Summon3" type="Button" parent="SummonBtns"]
-margin_left = 860.0
-margin_top = 480.0
-margin_right = 935.0
-margin_bottom = 580.0
-icon_align = 1
-expand_icon = true
-script = ExtResource( 3 )
-unit_type = ExtResource( 5 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SummonBtns/Summon3"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -15.0
-margin_right = -5.0
-bbcode_enabled = true
-bbcode_text = "[right]0"
-text = "0"
-
-[node name="Panel" type="Panel" parent="."]
-margin_left = 929.0
-margin_top = 447.0
-margin_right = 1009.0
-margin_bottom = 487.0
-script = ExtResource( 15 )
-
-[node name="ManaPoints" type="RichTextLabel" parent="Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 40.0
-margin_right = -5.0
-bbcode_enabled = true
-bbcode_text = "[center][right]0"
-text = "0"
-fit_content_height = true
-scroll_active = false
-
-[node name="TextureRect" type="TextureRect" parent="Panel"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 5.0
-margin_top = -15.0
-margin_right = 35.0
-margin_bottom = 15.0
-texture = ExtResource( 14 )
-expand = true
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2( 544, -45 )
-amount = 100
-lifetime = 3.0
-emission_shape = 2
-emission_rect_extents = Vector2( 500, 1 )
-initial_velocity_random = 1.0
-scale_amount = 5.0
-scale_amount_random = 1.0
-color = Color( 0.364706, 0.694118, 0.945098, 1 )

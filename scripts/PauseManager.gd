@@ -11,3 +11,6 @@ func pause():
 
 func unpause():
 	get_tree().paused = false
+	
+func isGamePaused():
+	return get_tree().paused

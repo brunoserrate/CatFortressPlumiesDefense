@@ -15,6 +15,9 @@ func connect_event(event_name, target, method):
 func emit_event(event_name, data = null):
 	if event_handlers.has(event_name):
 		for handler in event_handlers[event_name]:
+			if !is_instance_valid(handler["target"]):
+				continue
+			
 			if data == null:
 				handler["target"].callv(handler["method"], [])
 			else:

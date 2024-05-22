@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scripts/EnemyUnit.gd" type="Script" id=1]
 [ext_resource path="res://assets/Unities/Soldier/SoldierAnimations.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://assets/placeholders/base_health_bar_progress.png" type="Texture" id=3]
-[ext_resource path="res://assets/placeholders/base_health_bar_progress copy.png" type="Texture" id=4]
-[ext_resource path="res://assets/placeholders/base_health_bar_line.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/HealthBar/enemy_health_bar_fill.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/HealthBar/health_bar_outline.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/HealthBar/bg_health_bar.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.0
@@ -40,16 +40,14 @@ collision_mask = 5
 shape = SubResource( 2 )
 
 [node name="HpBar" type="TextureProgress" parent="."]
-margin_left = -17.0
-margin_top = -98.0
-margin_right = 23.0
-margin_bottom = -58.0
+margin_left = -85.0
+margin_top = -154.0
+margin_right = 128.0
+margin_bottom = -14.0
 value = 75.0
-texture_under = ExtResource( 4 )
-texture_over = ExtResource( 5 )
+texture_under = ExtResource( 5 )
+texture_over = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
-fill_mode = 4
-tint_under = Color( 0, 0, 0, 1 )
 nine_patch_stretch = true
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_AttackArea_area_entered"]

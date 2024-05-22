@@ -1,4 +1,4 @@
-extends Button
+extends TextureButton
 
 signal summon_unit(unit)
 
@@ -7,12 +7,13 @@ var unit_node
 var spawn_allied_controller: SpawnAlliedController
 
 onready var text_cost = $RichTextLabel
+onready var summon_outline = $SummonAvailableOutline
 
 func _ready():
-	connect("pressed", self, "_on_Button_pressed")
+	connect("pressed", self, "_on_TextureButton_pressed")
 	unit_node = unit_type.instance()
 
-	text_cost.bbcode_text = "[right]" + str(unit_node.cost)
+	text_cost.bbcode_text = "[color=black][right]" + str(unit_node.cost)
 
 	var root = get_tree().get_root()
 
@@ -23,9 +24,12 @@ func _ready():
 
 func _process(delta):
 	if(spawn_allied_controller.get_mana_points() < unit_node.cost):
-		self.disabled = true
+		summon_outline.visible = false
 	else:
-		self.disabled = false
+		summon_outline.visible = true
 
-func _on_Button_pressed():
+func _on_TextureButton_pressed():
+	if(spawn_allied_controller.get_mana_points() < unit_node.cost):
+		return
+	
 	emit_signal("summon_unit", unit_type)

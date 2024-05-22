@@ -1,60 +1,76 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/DefeatedPanel.gd" type="Script" id=1]
+[ext_resource path="res://assets/Backgrounds/defeated_panel_bg.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/Generics/generic_button.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/toroman.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/UI/Generics/generic_button_pressed.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/Generics/generic_button_hover.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 4 )
 
 [node name="DefeatedPanel" type="Control"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1024, 600 )
 script = ExtResource( 1 )
 
-[node name="DefeatedBG" type="ColorRect" parent="."]
-visible = false
+[node name="DefeatedBG" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.588235 )
+texture = ExtResource( 2 )
+expand = true
 
-[node name="Label" type="Label" parent="DefeatedBG"]
+[node name="HBoxContainer" type="VBoxContainer" parent="DefeatedBG"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -512.0
-margin_right = -307.0
-margin_bottom = 70.0
-rect_scale = Vector2( 5, 5 )
-text = "Derrota!"
+anchor_bottom = 1.0
+margin_left = -175.0
+margin_top = 276.0
+margin_right = 144.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+alignment = 1
+
+[node name="TryAgainBtn" type="TextureButton" parent="DefeatedBG/HBoxContainer"]
+margin_top = 130.0
+margin_right = 319.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 150, 30 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="DefeatedBG/HBoxContainer/TryAgainBtn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Tente novamente"
 align = 1
 valign = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DefeatedBG"]
-anchor_top = 1.0
+[node name="BackToMenuBtn" type="TextureButton" parent="DefeatedBG/HBoxContainer"]
+margin_top = 164.0
+margin_right = 319.0
+margin_bottom = 194.0
+rect_min_size = Vector2( 0, 30 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="DefeatedBG/HBoxContainer/BackToMenuBtn"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -315.0
-margin_right = -2.0
-alignment = 1
+size_flags_vertical = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Voltar"
+align = 1
+valign = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DefeatedBG/HBoxContainer"]
-margin_left = 418.0
-margin_right = 466.0
-margin_bottom = 315.0
-alignment = 1
-
-[node name="BackToMenuBtn" type="Button" parent="DefeatedBG/HBoxContainer/VBoxContainer"]
-margin_top = 147.0
-margin_right = 48.0
-margin_bottom = 167.0
-text = "Menu"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="DefeatedBG/HBoxContainer"]
-margin_left = 470.0
-margin_right = 604.0
-margin_bottom = 315.0
-alignment = 1
-
-[node name="TryAgainBtn" type="Button" parent="DefeatedBG/HBoxContainer/VBoxContainer2"]
-margin_top = 147.0
-margin_right = 134.0
-margin_bottom = 167.0
-text = "Tentar Novamente!"
-
-[connection signal="pressed" from="DefeatedBG/HBoxContainer/VBoxContainer2/TryAgainBtn" to="." method="_on_TryAgainBtn_pressed"]
+[connection signal="pressed" from="DefeatedBG/HBoxContainer/TryAgainBtn" to="." method="_on_TryAgainBtn_pressed"]

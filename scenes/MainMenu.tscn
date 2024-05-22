@@ -1,0 +1,174 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/UI/MainMenu/main_menu_background.png" type="Texture" id=1]
+[ext_resource path="res://assets/UI/MainMenu/main_menu_plumies_team.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/MainMenu/main_menu_limbo_team.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/MainMenu/main_menu_logo.png" type="Texture" id=4]
+[ext_resource path="res://scripts/MainMenuPanel.gd" type="Script" id=5]
+[ext_resource path="res://assets/UI/Generics/generic_button.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/Generics/generic_button_hover.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/Generics/generic_button_pressed.png" type="Texture" id=8]
+[ext_resource path="res://assets/fonts/toroman.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://scenes/levels/Level1.tscn" type="PackedScene" id=10]
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeOutStartMenu"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationPlayer:current_animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ "MainMenuAnimation" ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "MainMenuAnimation"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("LimboTeam:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlumiesTeam:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 10 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 9 )
+
+[node name="MainMenuPanel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+first_scene = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "FadeOutStartMenu"
+anims/FadeOutStartMenu = SubResource( 2 )
+anims/MainMenuAnimation = SubResource( 1 )
+
+[node name="BG" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="LimboTeam" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -10.0
+margin_bottom = -10.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="PlumiesTeam" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 10.0
+margin_bottom = 10.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Logo" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -175.0
+margin_top = 276.0
+margin_right = 144.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+alignment = 1
+
+[node name="PlayBtn" type="TextureButton" parent="HBoxContainer"]
+margin_top = 130.0
+margin_right = 319.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 150, 30 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 7 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/PlayBtn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Jogar"
+align = 1
+valign = 1
+
+[node name="ExitBtn" type="TextureButton" parent="HBoxContainer"]
+margin_top = 164.0
+margin_right = 319.0
+margin_bottom = 194.0
+rect_min_size = Vector2( 0, 30 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 7 )
+expand = true
+
+[node name="Label" type="Label" parent="HBoxContainer/ExitBtn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Sair"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+color = Color( 0, 0, 0, 0 )
+
+[connection signal="pressed" from="HBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
+[connection signal="pressed" from="HBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]

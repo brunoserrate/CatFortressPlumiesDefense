@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HallBackground_mockup.png-2ff74bee40237a31dd47bc4864727001.stex"
+path="res://.import/generic_button_hover.png-974d6d7daa7f274c08bf1d6fce7bbe07.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Backgrounds/HallBackground_mockup.png"
-dest_files=[ "res://.import/HallBackground_mockup.png-2ff74bee40237a31dd47bc4864727001.stex" ]
+source_file="res://assets/UI/Generics/generic_button_hover.png"
+dest_files=[ "res://.import/generic_button_hover.png-974d6d7daa7f274c08bf1d6fce7bbe07.stex" ]
 
 [params]
 
