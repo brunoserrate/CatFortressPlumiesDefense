@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "SpawnEnemyController",
 "language": "GDScript",
 "path": "res://scripts/SpawnEnemyController.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://scripts/Unit.gd"
 } ]
 _global_script_class_icons={
 "SpawnAlliedController": "",
-"SpawnEnemyController": ""
+"SpawnEnemyController": "",
+"Unit": ""
 }
 
 [application]

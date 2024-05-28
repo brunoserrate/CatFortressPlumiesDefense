@@ -75,7 +75,7 @@ position = Vector2( 970, 256 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 8 )
-spawn_rate = 3.5
+spawn_rate = 4.0
 pos1_path = NodePath("Pos1")
 pos2_path = NodePath("Pos2")
 pos3_path = NodePath("Pos3")
@@ -116,10 +116,10 @@ position = Vector2( 1, 4 )
 shape = SubResource( 3 )
 
 [node name="CrystalHpBar" type="TextureProgress" parent="EnemyCrystal"]
-margin_left = -90.0
-margin_top = -202.0
-margin_right = 123.0
-margin_bottom = -62.0
+margin_left = -42.0
+margin_top = -140.0
+margin_right = 45.0
+margin_bottom = -112.0
 value = 50.0
 texture_under = ExtResource( 10 )
 texture_over = ExtResource( 9 )
@@ -255,22 +255,23 @@ bbcode_text = "[color=black][right]99"
 text = "99"
 
 [node name="ManaPointsPanel" type="TextureRect" parent="UI"]
-margin_left = 840.0
-margin_top = 372.0
-margin_right = 1078.0
-margin_bottom = 555.0
+margin_left = 902.0
+margin_top = 431.0
+margin_right = 1009.0
+margin_bottom = 483.0
 texture = ExtResource( 18 )
 expand = true
 stretch_mode = 1
 script = ExtResource( 15 )
 
 [node name="ManaPoints" type="RichTextLabel" parent="UI/ManaPointsPanel"]
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 122.0
-margin_top = 45.0
-margin_right = -70.0
-margin_bottom = -78.0
+margin_left = -57.0
+margin_top = -19.0
+margin_right = -3.0
+margin_bottom = -11.0
 custom_fonts/normal_font = SubResource( 5 )
 bbcode_enabled = true
 bbcode_text = "[center][right]900"
@@ -281,10 +282,10 @@ scroll_active = false
 [node name="TextureRect" type="TextureRect" parent="UI/ManaPointsPanel"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 26.0
-margin_top = -46.5
-margin_right = 149.0
-margin_bottom = 34.5
+margin_left = -37.0
+margin_top = -47.0
+margin_right = 86.0
+margin_bottom = 34.0
 texture = ExtResource( 19 )
 expand = true
 

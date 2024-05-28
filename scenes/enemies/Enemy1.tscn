@@ -17,9 +17,11 @@ radius = 126.016
 collision_layer = 8
 collision_mask = 5
 script = ExtResource( 1 )
-move_speed = 50
 attack_power = 5
 max_health = 15
+move_speed = 50
+default_direction = Vector2( -1, 0 )
+group_list = [ "AlliedUnit", "AlliedSpawner" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 modulate = Color( 0.164706, 0.0627451, 0.0627451, 1 )
@@ -39,11 +41,11 @@ collision_mask = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource( 2 )
 
-[node name="HpBar" type="TextureProgress" parent="."]
-margin_left = -85.0
-margin_top = -154.0
-margin_right = 128.0
-margin_bottom = -14.0
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -45.0
+margin_top = -97.0
+margin_right = 42.0
+margin_bottom = -69.0
 value = 75.0
 texture_under = ExtResource( 5 )
 texture_over = ExtResource( 4 )
