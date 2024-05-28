@@ -5,6 +5,8 @@ extends Node2D
 export var health = 100
 export var spawn_rate = 1.5
 
+export(Resource) var enemy_spawn_set:Resource
+
 export(NodePath) var pos1_path:NodePath
 export(NodePath) var pos2_path:NodePath
 export(NodePath) var pos3_path:NodePath
@@ -39,6 +41,9 @@ func _ready():
 	set_paths()
 
 	add_to_group("EnemySpawner")
+
+	load_spawn_set_file()
+
 
 func _process(delta):
 	if(died):
@@ -93,3 +98,13 @@ func destroy():
 	EventBusSingleton.emit_event("enemy_base_destroyed")
 	PauseManager.pause()
 	queue_free()
+
+func load_spawn_set_file():
+	# Verificar se o recurso está configurado
+	if enemy_spawn_set:
+		enemy_spawn_set.load_enemy_spawn_set()
+		print("Template carregado com sucesso!")
+		for spawn_set in enemy_spawn_set.enemy_spawn_set:
+			print(spawn_set["enemies_to_spawn"][0])
+	else:
+		print("Erro ao carregar o template!")

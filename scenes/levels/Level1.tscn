@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://assets/Backgrounds/HallBackground.png" type="Texture" id=1]
 [ext_resource path="res://scenes/managers_controllers/SpawnAlliedController.tscn" type="PackedScene" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://assets/UI/ButtonsSummons/Knight/knigh_summon_button_disabled.png" type="Texture" id=30]
 [ext_resource path="res://scenes/unities/NinjaUnit.tscn" type="PackedScene" id=31]
 [ext_resource path="res://scenes/unities/HeroUnit.tscn" type="PackedScene" id=32]
+[ext_resource path="res://resources/level_1_spawn_set_resource.tres" type="Resource" id=33]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 32.0
@@ -76,6 +77,7 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource( 8 )
 spawn_rate = 4.0
+enemy_spawn_set = ExtResource( 33 )
 pos1_path = NodePath("Pos1")
 pos2_path = NodePath("Pos2")
 pos3_path = NodePath("Pos3")
