@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "EnemySpawnSet",
-"language": "GDScript",
-"path": "res://scripts/EnemySpawnSet.gd"
-}, {
-"base": "Resource",
 "class": "EnemySpawnSetTemplate",
 "language": "GDScript",
 "path": "res://scripts/EnemySpawnSetTemplate.gd"
@@ -35,7 +30,6 @@ _global_script_classes=[ {
 "path": "res://scripts/Unit.gd"
 } ]
 _global_script_class_icons={
-"EnemySpawnSet": "",
 "EnemySpawnSetTemplate": "",
 "SpawnAlliedController": "",
 "SpawnEnemyController": "",

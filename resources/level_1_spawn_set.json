@@ -4,7 +4,7 @@
             "res://scenes/enemies/Enemy1.tscn"
         ],
         "time_to_begin": 0,
-        "change_spawn_time": false,
-        "changed_spawn_time": 0
+        "change_spawn_time": true,
+        "changed_spawn_time": 4
     }
 ]

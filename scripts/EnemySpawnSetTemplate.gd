@@ -4,7 +4,7 @@ class_name EnemySpawnSetTemplate
 
 # Caminho para o arquivo JSON
 export(String) var json_file_path = ""
-var enemy_spawn_set = []
+var level_enemy_spawn_set = []
 
 func _init():
 	if json_file_path != "":
@@ -23,17 +23,22 @@ func load_enemy_spawn_set():
 			return
 
 		var json_data = json_result.result
-		for enemy_info in json_data:
+
+		print("Carregando inimigos do arquivo: ", json_data)
+
+		for spawn_set in json_data:
 			var enemies_to_spawn = []
-			for enemy in enemy_info["enemies_to_spawn"]:
+
+			for enemy in spawn_set["enemies_to_spawn"]:
 				enemies_to_spawn.append(load(enemy))
 
-			var enemy_spawn_info = {
+			var spawn_set_info = {
 				"enemies_to_spawn": enemies_to_spawn,
-				"time_to_begin": enemy_info["time_to_begin"],
-				"change_spawn_time": enemy_info["change_spawn_time"],
-				"changed_spawn_time": enemy_info["changed_spawn_time"]
+				"time_to_begin": spawn_set["time_to_begin"],
+				"change_spawn_time": spawn_set["change_spawn_time"],
+				"changed_spawn_time": spawn_set["changed_spawn_time"]
 			}
-			enemy_spawn_set.append(enemy_spawn_info)
+
+			level_enemy_spawn_set.append(spawn_set_info)
 	else:
 		print("Arquivo JSON não encontrado: ", json_file_path)

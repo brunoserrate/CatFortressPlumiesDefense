@@ -3,7 +3,7 @@ class_name SpawnEnemyController
 extends Node2D
 
 export var health = 100
-export var spawn_rate = 1.5
+var spawn_rate = 1.5
 
 export(Resource) var enemy_spawn_set:Resource
 
@@ -15,18 +15,22 @@ onready var pos1:Position2D = null
 onready var pos2:Position2D = null
 onready var pos3:Position2D = null
 
-export(PackedScene) var unit
+# export(PackedScene) var unit
 export(NodePath) var ysort_path
 
 onready var ysort = null
 
-var timer = 0
 onready var animation_player = $AnimationPlayer
 onready var animated_sprite = $AnimatedSprite
 var died = false
 
-# Hp Bar Texture Progress Bar
 var hpBar: TextureProgress
+
+var spawn_timer = 0
+var spawn_set_timer = 0
+var spawn_set_index = 0
+var level_spawn_set = null
+var current_spawn_set = null
 
 func _ready():
 	EventBusSingleton.register_event("enemy_base_destroyed")
@@ -36,7 +40,7 @@ func _ready():
 	hpBar.max_value = health
 	hpBar.value = health
 
-	timer = 0
+	spawn_timer = 0
 
 	set_paths()
 
@@ -49,10 +53,8 @@ func _process(delta):
 	if(died):
 		return
 
-	timer += delta
-	if timer >= spawn_rate:
-		timer = 0
-		spawnUnit()
+	check_spawn_set(delta)
+	check_spawn(delta)
 
 func receive_damage(damage):
 	if(died):
@@ -64,7 +66,25 @@ func receive_damage(damage):
 	if health <= 0:
 		destroy()
 
+func check_spawn_set(delta):
+	if spawn_set_index >= level_spawn_set.size():
+		return
+
+	spawn_set_timer += delta
+
+	if spawn_set_timer >= current_spawn_set["time_to_begin"]:
+		spawn_set_index += 1
+
+func check_spawn(delta):
+	spawn_timer += delta
+	if spawn_timer >= spawn_rate:
+		spawn_timer = 0
+		spawnUnit()
+
 func spawnUnit():
+	var random_unit = randi() % current_spawn_set["enemies_to_spawn"].size()
+	var unit = current_spawn_set["enemies_to_spawn"][random_unit]
+
 	var instance = unit.instance()
 	var randomNumber = randi() % 3 + 1
 
@@ -103,8 +123,19 @@ func load_spawn_set_file():
 	# Verificar se o recurso está configurado
 	if enemy_spawn_set:
 		enemy_spawn_set.load_enemy_spawn_set()
-		print("Template carregado com sucesso!")
-		for spawn_set in enemy_spawn_set.enemy_spawn_set:
-			print(spawn_set["enemies_to_spawn"][0])
+
+		if(enemy_spawn_set.level_enemy_spawn_set == null || enemy_spawn_set.level_enemy_spawn_set.size() == 0):
+			print("Erro ao carregar o template!")
+			return
+			
+
+		level_spawn_set = enemy_spawn_set.level_enemy_spawn_set
+
+		print(level_spawn_set[0])
+		current_spawn_set = level_spawn_set[0]
+
+		if(level_spawn_set[0]["change_spawn_time"]):
+			spawn_rate = level_spawn_set[0]["changed_spawn_time"]
+
 	else:
 		print("Erro ao carregar o template!")
