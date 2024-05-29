@@ -138,6 +138,10 @@ func attack(delta):
 		animated_sprite.play("attack")
 
 	yield(get_tree().create_timer(0.1), "timeout")
+	
+	if(!is_instance_valid(self)):
+		return
+
 	yield(animated_sprite, "animation_finished")
 
 	if(!is_instance_valid(self)):
@@ -168,7 +172,8 @@ func attack(delta):
 		target = null
 		state = GlobalEnums.UnitState.MOVING
 
-	animated_sprite.play("run")
+	if(animated_sprite.frames.has_animation("idle")):
+		animated_sprite.play("idle")
 
 
 # Axuiliary functions
