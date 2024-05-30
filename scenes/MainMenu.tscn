@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/UI/MainMenu/main_menu_background.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/MainMenu/main_menu_plumies_team.png" type="Texture" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://assets/UI/Generics/generic_button.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/Generics/generic_button_hover.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/Generics/generic_button_pressed.png" type="Texture" id=8]
-[ext_resource path="res://assets/fonts/toroman.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://assets/Fonts/toroman.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://scenes/levels/Level1.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/Music/stage_1_menu_theme.mp3" type="AudioStream" id=11]
 
 [sub_resource type="Animation" id=2]
 resource_name = "FadeOutStartMenu"
@@ -169,6 +170,10 @@ anchor_bottom = 1.0
 mouse_filter = 2
 input_pass_on_modal_close_click = false
 color = Color( 0, 0, 0, 0 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
 
 [connection signal="pressed" from="HBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]
 [connection signal="pressed" from="HBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]

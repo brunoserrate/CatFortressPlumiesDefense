@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/DefeatedPanel.gd" type="Script" id=1]
 [ext_resource path="res://assets/Backgrounds/defeated_panel_bg.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/Generics/generic_button.png" type="Texture" id=3]
-[ext_resource path="res://assets/fonts/toroman.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/Fonts/toroman.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/UI/Generics/generic_button_pressed.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/Generics/generic_button_hover.png" type="Texture" id=6]
 
