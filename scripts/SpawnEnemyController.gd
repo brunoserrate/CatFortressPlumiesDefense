@@ -123,6 +123,7 @@ func destroy():
 	yield($AnimatedSprite, "animation_finished")
 	EventBusSingleton.emit_event("enemy_base_destroyed")
 	PauseManager.pause()
+	AudioManager.play_music("res://assets/Music/win_panel.mp3")
 	queue_free()
 
 func load_spawn_set_file():

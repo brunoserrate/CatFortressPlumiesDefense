@@ -107,6 +107,7 @@ func destroy():
 	yield($AnimatedSprite, "animation_finished")
 	EventBusSingleton.emit_event("allied_base_destroyed")
 	PauseManager.pause()
+	AudioManager.play_music("res://assets/Music/lose_panel.mp3")
 	queue_free()
 
 
