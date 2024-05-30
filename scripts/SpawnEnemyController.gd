@@ -127,11 +127,9 @@ func load_spawn_set_file():
 		if(enemy_spawn_set.level_enemy_spawn_set == null || enemy_spawn_set.level_enemy_spawn_set.size() == 0):
 			print("Erro ao carregar o template!")
 			return
-			
 
 		level_spawn_set = enemy_spawn_set.level_enemy_spawn_set
 
-		print(level_spawn_set[0])
 		current_spawn_set = level_spawn_set[0]
 
 		if(level_spawn_set[0]["change_spawn_time"]):

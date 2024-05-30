@@ -1,8 +1,5 @@
-# EnemySpawnSetTemplate.gd
-extends Resource
-class_name EnemySpawnSetTemplate
+class_name EnemySpawnSetTemplate extends Resource
 
-# Caminho para o arquivo JSON
 export(String) var json_file_path = ""
 var level_enemy_spawn_set = []
 
