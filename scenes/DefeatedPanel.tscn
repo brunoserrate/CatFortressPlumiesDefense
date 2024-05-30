@@ -16,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1024, 600 )
 script = ExtResource( 1 )
+main_menu_scene = "res://scenes/MainMenu.tscn"
 
 [node name="DefeatedBG" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -74,3 +75,4 @@ align = 1
 valign = 1
 
 [connection signal="pressed" from="DefeatedBG/HBoxContainer/TryAgainBtn" to="." method="_on_TryAgainBtn_pressed"]
+[connection signal="pressed" from="DefeatedBG/HBoxContainer/BackToMenuBtn" to="." method="_on_BackToMenuBtn_pressed"]

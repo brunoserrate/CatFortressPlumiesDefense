@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/UI/MainMenu/main_menu_background.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/MainMenu/main_menu_plumies_team.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://assets/UI/Generics/generic_button_hover.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/Generics/generic_button_pressed.png" type="Texture" id=8]
 [ext_resource path="res://assets/Fonts/toroman.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://scenes/levels/Level1.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/Music/stage_1_menu_theme.mp3" type="AudioStream" id=11]
 
 [sub_resource type="Animation" id=2]
@@ -34,7 +33,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1.4 ),
+"times": PoolRealArray( 1.3 ),
 "transitions": PoolRealArray( 1 ),
 "update": 2,
 "values": [ "MainMenuAnimation" ]
@@ -79,10 +78,10 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
-first_scene = ExtResource( 10 )
+first_scene_path = "res://scenes/levels/Level1.tscn"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "FadeOutStartMenu"
+pause_mode = 2
 anims/FadeOutStartMenu = SubResource( 2 )
 anims/MainMenuAnimation = SubResource( 1 )
 
@@ -95,16 +94,12 @@ expand = true
 [node name="LimboTeam" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -10.0
-margin_bottom = -10.0
 texture = ExtResource( 3 )
 expand = true
 
 [node name="PlumiesTeam" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 10.0
-margin_bottom = 10.0
 texture = ExtResource( 2 )
 expand = true
 
@@ -169,10 +164,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 input_pass_on_modal_close_click = false
-color = Color( 0, 0, 0, 0 )
+color = Color( 0, 0, 0, 0.131219 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+volume_db = -1.0
 autoplay = true
 
 [connection signal="pressed" from="HBoxContainer/PlayBtn" to="." method="_on_PlayBtn_pressed"]

@@ -11,15 +11,17 @@ radius = 19.0
 height = 6.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 126.016
+radius = 409.02
 
 [node name="BadUnit" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 10
 script = ExtResource( 5 )
+attack_power = 13
 attack_rate = 1.0
-move_speed = 60
-cost = 4
+max_health = 110
+defense = 4
+move_speed = 75
 group_list = [ "EnemyUnit", "EnemySpawner" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

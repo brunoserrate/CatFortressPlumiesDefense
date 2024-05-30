@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/EnemyUnit.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/HealthBar/enemy_health_bar_fill.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/HealthBar/health_bar_outline.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/HealthBar/bg_health_bar.png" type="Texture" id=4]
+[ext_resource path="res://assets/EnemyUnities/LimboBad/LimboBadAnimations.tres" type="SpriteFrames" id=5]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 19.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 292.007
+
+[node name="LimboBad" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource( 1 )
+attack_power = 12
+attack_rate = 1.3
+max_health = 90
+defense = 3
+move_speed = 70
+default_direction = Vector2( -1, 0 )
+group_list = [ "AlliedUnit", "AlliedSpawner" ]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.7, 0.7 )
+frames = ExtResource( 5 )
+animation = "run"
+speed_scale = 0.9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 22, 32 )
+shape = SubResource( 1 )
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource( 2 )
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -26.0
+margin_top = -91.0
+margin_right = 61.0
+margin_bottom = -63.0
+value = 75.0
+texture_under = ExtResource( 4 )
+texture_over = ExtResource( 3 )
+texture_progress = ExtResource( 2 )
+nine_patch_stretch = true
+
+[connection signal="area_entered" from="AttackArea" to="." method="_on_AttackArea_area_entered"]

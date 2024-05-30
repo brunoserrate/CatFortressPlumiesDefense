@@ -3,6 +3,8 @@ extends KinematicBody2D
 export(float) var speed = 100
 export(String) var group_name
 
+export var can_rotate:bool = false
+
 var velocity = Vector2.ZERO
 var target = null
 var damage = 0
@@ -38,3 +40,6 @@ func set_group_list(_group_list):
 func set_velocity():
 	if is_instance_valid(target) and velocity == Vector2.ZERO:  # Só define se a velocidade ainda não foi definida
 		velocity = (target.global_position - global_position).normalized() * speed
+
+		if can_rotate:
+			rotation = velocity.angle()

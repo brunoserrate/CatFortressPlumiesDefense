@@ -11,15 +11,18 @@ radius = 19.0
 height = 6.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 126.016
+radius = 291.007
 
 [node name="MageUnit" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 10
 script = ExtResource( 5 )
-attack_rate = 1.0
-move_speed = 60
-cost = 4
+attack_power = 11
+attack_rate = 1.2
+max_health = 90
+defense = 1
+move_speed = 50
+cost = 6
 group_list = [ "EnemyUnit", "EnemySpawner" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

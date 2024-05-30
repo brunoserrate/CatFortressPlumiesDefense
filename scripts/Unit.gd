@@ -72,6 +72,10 @@ func _on_AttackArea_area_entered(area):
 					if target_list.size() > 0:
 						target_list.append(parent)
 						clear_invalid_targets()
+						var nearest_target = get_nearest_target()
+						set_target_position(nearest_target)
+						return
+
 					set_target_position(parent)
 					return
 
@@ -139,7 +143,7 @@ func attack(delta):
 		animated_sprite.play("attack")
 
 	yield(get_tree().create_timer(0.1), "timeout")
-	
+
 	if(!is_instance_valid(self)):
 		return
 
@@ -168,10 +172,16 @@ func attack(delta):
 	elif(attack_type == GlobalEnums.UnitAttackType.MELEE):
 		target.receive_damage(attack_power)
 
-
 	if(target.health <= 0):
 		target = null
-		state = GlobalEnums.UnitState.MOVING
+
+		if(attack_type == GlobalEnums.UnitAttackType.RANGED):
+			clear_invalid_targets()
+			set_nearest_target()
+			state = GlobalEnums.UnitState.ATTACKING
+		else:
+			state = GlobalEnums.UnitState.MOVING
+			return
 
 	if(animated_sprite.frames.has_animation("idle")):
 		animated_sprite.play("idle")
@@ -199,18 +209,15 @@ func set_nearest_target():
 	if(target_list.size() == 0):
 		return
 
-	# first target from the list
 	var nearest_target = target_list[0]
-
-	# new list of targets
 	var new_target_list = []
-
-	# distance to the first target
 	var nearest_distance = global_position.distance_to(nearest_target.global_position)
 
-	# find the nearest target
 	for target_unit in target_list:
-		var distance = global_position.distance_to(target.global_position)
+		if(target_unit == nearest_target || !is_instance_valid(target_unit) || !is_instance_valid(nearest_target)):
+			continue
+
+		var distance = global_position.distance_to(target_unit.global_position)
 
 		if(distance < nearest_distance):
 			nearest_target = target_unit
@@ -221,6 +228,25 @@ func set_nearest_target():
 	target_list = new_target_list
 	target_list.insert(0, nearest_target)
 	target = nearest_target
+
+func get_nearest_target():
+	if(target_list.size() == 0):
+		return null
+
+	var nearest_target = target_list[0]
+	var nearest_distance = global_position.distance_to(nearest_target.global_position)
+
+	for target_unit in target_list:
+		if(target_unit == nearest_target || !is_instance_valid(target_unit) || !is_instance_valid(nearest_target)):
+			continue
+
+		var distance = global_position.distance_to(target_unit.global_position)
+
+		if(distance < nearest_distance):
+			nearest_target = target_unit
+			nearest_distance = distance
+
+	return nearest_target
 
 func clear_invalid_targets():
 	var new_target_list = []

@@ -67,18 +67,21 @@ func receive_damage(damage):
 		destroy()
 
 func check_spawn_set(delta):
-	if spawn_set_index >= level_spawn_set.size():
+	if (spawn_set_index + 1) >= level_spawn_set.size():
 		return
 
 	spawn_set_timer += delta
 
-	if spawn_set_timer >= current_spawn_set["time_to_begin"]:
+	if spawn_set_timer >= level_spawn_set[spawn_set_index + 1]["time_to_begin"]:
 		spawn_set_index += 1
 
-		if spawn_set_index >= level_spawn_set.size():
+		if spawn_set_index > level_spawn_set.size():
 			return
 
 		current_spawn_set = level_spawn_set[spawn_set_index]
+
+		if(current_spawn_set["change_spawn_time"]):
+			spawn_rate = current_spawn_set["changed_spawn_time"]
 
 func check_spawn(delta):
 	spawn_timer += delta

@@ -17,8 +17,11 @@ radius = 126.016
 collision_layer = 4
 collision_mask = 10
 script = ExtResource( 5 )
-attack_rate = 1.0
-move_speed = 60
+attack_power = 5
+attack_rate = 0.7
+max_health = 90
+defense = 4
+move_speed = 75
 cost = 4
 group_list = [ "EnemyUnit", "EnemySpawner" ]
 
