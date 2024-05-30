@@ -1,7 +1,9 @@
 [
     {
         "enemies_to_spawn": [
-            "res://scenes/enemies/Enemy1.tscn"
+            "res://scenes/enemies/LimboSoldier.tscn",
+            "res://scenes/enemies/LimboNinja.tscn",
+            "res://scenes/enemies/LimboMage.tscn"
         ],
         "time_to_begin": 0,
         "change_spawn_time": true,

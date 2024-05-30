@@ -75,6 +75,11 @@ func check_spawn_set(delta):
 	if spawn_set_timer >= current_spawn_set["time_to_begin"]:
 		spawn_set_index += 1
 
+		if spawn_set_index >= level_spawn_set.size():
+			return
+
+		current_spawn_set = level_spawn_set[spawn_set_index]
+
 func check_spawn(delta):
 	spawn_timer += delta
 	if spawn_timer >= spawn_rate:
@@ -82,7 +87,8 @@ func check_spawn(delta):
 		spawnUnit()
 
 func spawnUnit():
-	var random_unit = randi() % current_spawn_set["enemies_to_spawn"].size()
+	randomize()
+	var random_unit = floor(rand_range(0, current_spawn_set["enemies_to_spawn"].size()))
 	var unit = current_spawn_set["enemies_to_spawn"][random_unit]
 
 	var instance = unit.instance()
@@ -120,7 +126,6 @@ func destroy():
 	queue_free()
 
 func load_spawn_set_file():
-	# Verificar se o recurso está configurado
 	if enemy_spawn_set:
 		enemy_spawn_set.load_enemy_spawn_set()
 

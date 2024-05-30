@@ -107,6 +107,7 @@ func receive_damage(damage):
 	health_bar.value = health
 
 	if(health <= 0):
+		health_bar.visible = false
 		health = 0;
 		die()
 

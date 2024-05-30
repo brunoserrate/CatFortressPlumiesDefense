@@ -21,8 +21,6 @@ func load_enemy_spawn_set():
 
 		var json_data = json_result.result
 
-		print("Carregando inimigos do arquivo: ", json_data)
-
 		for spawn_set in json_data:
 			var enemies_to_spawn = []
 
