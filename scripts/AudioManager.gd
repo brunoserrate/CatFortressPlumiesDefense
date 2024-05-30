@@ -1,16 +1,34 @@
 extends Node
 
+func play_sound(sound: String, volume: float = 1.0, pitch: float = 1.0, loop: bool = false) -> void:
+	var sound_instance = AudioStreamPlayer.new()
+	sound_instance.stream = load(sound)
+	sound_instance.volume_db = volume
+	sound_instance.pitch_scale = pitch
+	sound_instance.loop = loop
+	sound_instance.play()
+	add_child(sound_instance)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func play_music(music: String, volume: float = 1.0, pitch: float = 1.0, loop: bool = false) -> void:
+	var music_instance = AudioStreamPlayer.new()
+	music_instance.stream = load(music)
+	music_instance.volume_db = volume
+	music_instance.pitch_scale = pitch
+	music_instance.loop = loop
+	music_instance.play()
+	add_child(music_instance)
 
+func stop_all_sounds() -> void:
+	for child in get_children():
+		if child is AudioStreamPlayer:
+			child.stop()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func stop_sound(sound: String) -> void:
+	for child in get_children():
+		if child is AudioStreamPlayer and child.stream == load(sound):
+			child.stop()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func stop_music(music: String) -> void:
+	for child in get_children():
+		if child is AudioStreamPlayer and child.stream == load(music):
+			child.stop()

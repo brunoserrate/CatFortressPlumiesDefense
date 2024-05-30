@@ -46,6 +46,7 @@ config/icon="res://assets/logo.png"
 
 EventBusSingleton="*res://scripts/EventBusSingleton.gd"
 PauseManager="*res://scripts/PauseManager.gd"
+AudioManager="*res://scripts/AudioManager.gd"
 
 [display]
 
