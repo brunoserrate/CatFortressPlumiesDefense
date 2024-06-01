@@ -46,7 +46,27 @@ func _process(delta):
 
 	match state:
 		GlobalEnums.UnitState.IDLE:
-			pass
+			if animated_sprite.animation.has_animation("idle"):
+				animated_sprite.play("idle")
+
+			clear_invalid_targets()
+
+			if(target_list.size() > 0):
+				if attack_type == GlobalEnums.UnitAttackType.RANGED:
+					set_nearest_target()
+					state = GlobalEnums.UnitState.ATTACKING
+					return
+				elif attack_type == GlobalEnums.UnitAttackType.MELEE:
+					var nearest_target = get_nearest_target()
+
+					if(nearest_target != null):
+						set_target_position(nearest_target)
+					else:
+						set_velocity(default_direction)
+
+					state = GlobalEnums.UnitState.MOVING
+				return
+
 		GlobalEnums.UnitState.MOVING:
 			move_unit(delta)
 		GlobalEnums.UnitState.ATTACKING:
@@ -55,29 +75,28 @@ func _process(delta):
 func _on_AttackArea_area_entered(area):
 	var parent = area.get_parent()
 
-	if state == GlobalEnums.UnitState.IDLE or state == GlobalEnums.UnitState.MOVING:
-		if attack_type == GlobalEnums.UnitAttackType.RANGED:
-			for group in group_list:
-				if parent.is_in_group(group):
-					target = parent
+	if attack_type == GlobalEnums.UnitAttackType.RANGED:
+		for group in group_list:
+			if parent.is_in_group(group):
+				target = parent
+				target_list.append(parent)
+				clear_invalid_targets()
+				set_nearest_target()
+				state = GlobalEnums.UnitState.ATTACKING
+				set_velocity(Vector2.ZERO)
+				return
+	elif attack_type == GlobalEnums.UnitAttackType.MELEE:
+		for group in group_list:
+			if parent.is_in_group(group):
+				if target_list.size() > 0:
 					target_list.append(parent)
 					clear_invalid_targets()
-					set_nearest_target()
-					state = GlobalEnums.UnitState.ATTACKING
-					set_velocity(Vector2.ZERO)
+					var nearest_target = get_nearest_target()
+					set_target_position(nearest_target)
 					return
-		elif attack_type == GlobalEnums.UnitAttackType.MELEE:
-			for group in group_list:
-				if parent.is_in_group(group):
-					if target_list.size() > 0:
-						target_list.append(parent)
-						clear_invalid_targets()
-						var nearest_target = get_nearest_target()
-						set_target_position(nearest_target)
-						return
 
-					set_target_position(parent)
-					return
+				set_target_position(parent)
+				return
 
 # Internal functions
 func move_unit(delta):
@@ -92,6 +111,8 @@ func move_unit(delta):
 	if(collisions):
 		for group in group_list:
 			if(collisions.collider.is_in_group(group)):
+				target_list.append(collisions.collider)
+				clear_invalid_targets()
 				target = collisions.collider
 				state = GlobalEnums.UnitState.ATTACKING
 				velocity = Vector2.ZERO
@@ -120,14 +141,11 @@ func die():
 	queue_free()
 
 func attack(delta):
-	if(!is_instance_valid(self)):
+	if(!is_instance_valid(self) or attack_animation_is_playing()):
 		return
 
-	if(!is_instance_valid(target) || target == null):
+	if(!is_instance_valid(target) or target == null):
 		state = GlobalEnums.UnitState.MOVING
-		return
-
-	if(attack_animation_is_playing()):
 		return
 
 	attack_timer += delta
@@ -153,39 +171,27 @@ func attack(delta):
 		return
 
 	if(!is_instance_valid(target) || target == null):
-		state = GlobalEnums.UnitState.MOVING
-		return
+		change_state_after_target_die()
 
 	if(attack_type == GlobalEnums.UnitAttackType.RANGED):
 		if(projectile == null):
 			return
 
-		var projectile_instance = projectile.instance()
-		projectile_instance.global_position = global_position + projectile_offset
-
-		projectile_instance.set_target(target)
-		projectile_instance.set_damage(attack_power)
-		projectile_instance.set_group_list(group_list)
-
-		get_parent().add_child(projectile_instance)  # Adicione à cena primeiro
-		projectile_instance.set_velocity()  # Então configure a velocidade
+		spawn_projectile(target)
 	elif(attack_type == GlobalEnums.UnitAttackType.MELEE):
 		target.receive_damage(attack_power)
+
+	if !is_instance_valid(target):
+		change_state_after_target_die()
+		return
 
 	if(target.health <= 0):
 		target = null
 
-		if(attack_type == GlobalEnums.UnitAttackType.RANGED):
-			clear_invalid_targets()
-			set_nearest_target()
-			state = GlobalEnums.UnitState.ATTACKING
-		else:
-			state = GlobalEnums.UnitState.MOVING
-			return
+	change_state_after_target_die()
 
 	if(animated_sprite.frames.has_animation("idle")):
 		animated_sprite.play("idle")
-
 
 # Axuiliary functions
 func attack_animation_is_playing():
@@ -257,3 +263,22 @@ func clear_invalid_targets():
 
 	target_list = new_target_list
 
+func change_state_after_target_die():
+	if(attack_type == GlobalEnums.UnitAttackType.RANGED):
+		clear_invalid_targets()
+		set_nearest_target()
+		state = GlobalEnums.UnitState.ATTACKING
+	else:
+		state = GlobalEnums.UnitState.MOVING
+		return
+
+func spawn_projectile(_target):
+	var projectile_instance = projectile.instance()
+	projectile_instance.global_position = global_position + projectile_offset
+
+	projectile_instance.set_target(_target)
+	projectile_instance.set_damage(attack_power)
+	projectile_instance.set_group_list(group_list)
+
+	get_parent().add_child(projectile_instance)
+	projectile_instance.set_velocity()

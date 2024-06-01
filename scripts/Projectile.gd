@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export(float) var speed = 100
 export(String) var group_name
+export(Vector2) var default_direction = Vector2.RIGHT
 
 export var can_rotate:bool = false
 
@@ -16,6 +17,7 @@ func _ready():
 
 func _physics_process(delta):
 	if (velocity == Vector2.ZERO):
+		velocity = default_direction * speed
 		return
 
 	var collisions = move_and_collide(velocity * delta)

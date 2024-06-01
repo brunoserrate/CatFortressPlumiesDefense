@@ -38,8 +38,11 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Cat Fortress: Plumies Defense"
+config/name="Cat Fortress: Setan Defense"
+config/description="O reino de Setan foi invadido pelas criaturas misteriosas, mais conhecidas como \"Limbos\", que podem tomar a forma de todo ser que vê. No entanto, o rei Akiho ordenou seus cavaleiros \"plumies\" combaterem esse mal que ameaça o seu reino.
+Sua missão é invocar os mais fortes plumies para batalhar contra os limbos e expulsá-los de Setan, numa árdua batalha de magia, espadas e patinhas!"
 run/main_scene="res://scenes/MainMenu.tscn"
+boot_splash/image="res://assets/UI/MainMenu/main_menu_logo.png"
 config/icon="res://assets/logo.png"
 
 [autoload]
