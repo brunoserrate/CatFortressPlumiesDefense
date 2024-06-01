@@ -7,7 +7,7 @@ export var attack_rate = 1.5
 export(GlobalEnums.UnitAttackType) var attack_type
 
 export var max_health = 100
-export var defense = 5
+# export var defense = 5
 
 export var move_speed = 100
 
@@ -46,7 +46,10 @@ func _process(delta):
 
 	match state:
 		GlobalEnums.UnitState.IDLE:
-			if animated_sprite.animation.has_animation("idle"):
+			if !is_instance_valid(self):
+				return
+
+			if animated_sprite.frames.has_animation("idle"):
 				animated_sprite.play("idle")
 
 			clear_invalid_targets()
@@ -66,6 +69,9 @@ func _process(delta):
 
 					state = GlobalEnums.UnitState.MOVING
 				return
+			else:
+				set_velocity(default_direction)
+				set_state(GlobalEnums.UnitState.MOVING)
 
 		GlobalEnums.UnitState.MOVING:
 			move_unit(delta)
@@ -122,7 +128,7 @@ func receive_damage(damage):
 	if(health <= 0):
 		return
 
-	var calc_damage = max(1, damage - defense)
+	var calc_damage = max(1, damage)
 
 	health -= calc_damage
 
@@ -145,7 +151,7 @@ func attack(delta):
 		return
 
 	if(!is_instance_valid(target) or target == null):
-		state = GlobalEnums.UnitState.MOVING
+		change_state_after_target_die()
 		return
 
 	attack_timer += delta
@@ -156,6 +162,9 @@ func attack(delta):
 	attack_timer = 0
 
 	state = GlobalEnums.UnitState.ATTACKING
+
+	if !is_instance_valid(self):
+		return
 
 	if(animated_sprite.frames.has_animation("attack")):
 		animated_sprite.play("attack")
@@ -179,6 +188,10 @@ func attack(delta):
 
 		spawn_projectile(target)
 	elif(attack_type == GlobalEnums.UnitAttackType.MELEE):
+		if !is_instance_valid(target):
+			change_state_after_target_die()
+			return
+
 		target.receive_damage(attack_power)
 
 	if !is_instance_valid(target):
@@ -269,7 +282,7 @@ func change_state_after_target_die():
 		set_nearest_target()
 		state = GlobalEnums.UnitState.ATTACKING
 	else:
-		state = GlobalEnums.UnitState.MOVING
+		state = GlobalEnums.UnitState.IDLE
 		return
 
 func spawn_projectile(_target):

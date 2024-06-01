@@ -1,31 +1,29 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/EnemyUnit.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/HealthBar/enemy_health_bar_fill.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/HealthBar/health_bar_outline.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/HealthBar/bg_health_bar.png" type="Texture" id=4]
-[ext_resource path="res://assets/EnemyUnities/LimboMage/LimboMageAnimations.tres" type="SpriteFrames" id=5]
-[ext_resource path="res://scenes/projectiles/Enemies/LimboMageSphere.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/EnemyUnities/LimboThief/LimboThiefAnimations.tres" type="SpriteFrames" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.0
 height = 6.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 240.0
+radius = 150.0
 
-[node name="LimboMage" type="KinematicBody2D"]
+[node name="LimboThief" type="KinematicBody2D"]
 collision_layer = 8
 collision_mask = 5
 script = ExtResource( 1 )
-attack_power = 9
-attack_type = 1
-max_health = 50
-defense = 0
-move_speed = 50
+attack_power = 3
+attack_rate = 1.2
+max_health = 80
+defense = 2
+move_speed = 65
 default_direction = Vector2( -1, 0 )
 group_list = [ "AlliedUnit", "AlliedSpawner" ]
-projectile = ExtResource( 6 )
 projectile_offset = Vector2( -40, 20 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
